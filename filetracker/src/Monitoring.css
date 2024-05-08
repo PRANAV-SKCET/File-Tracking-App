@@ -1,0 +1,18 @@
+.monitoring-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+.input-field {
+    margin-bottom: 20px;
+    display: block;
+}
+
+.track-button {
+    display: block;
+    margin-top: 20px;
+}
