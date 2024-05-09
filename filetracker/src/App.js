@@ -7,6 +7,8 @@ import AdminPage from './components/adminPage';
 import OfficePage from './components/officePage';
 import EmployeePage from './components/employeePage';
 import AdminWorking from './components/adminWorking';
+import OfficeWorking from './components/officeWorking';
+import EmployeeWorking from './components/employeeWorking';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
         <Route path="/employee" element={<EmployeePage />} />
         <Route path="/monitoring" element={<Monitoring />} />
         <Route path="/adminWorking" element={<AdminWorking />} />
+        <Route path="/officeWorking" element={<OfficeWorking />} />
+        <Route path="/employeeWorking" element={<EmployeeWorking />} />
         </Routes>
       </Router>
     </div>
