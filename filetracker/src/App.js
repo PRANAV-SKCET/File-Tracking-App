@@ -6,6 +6,7 @@ import Monitoring from './components/monitoring';
 import AdminPage from './components/adminPage';
 import OfficePage from './components/officePage';
 import EmployeePage from './components/employeePage';
+import AdminWorking from './components/adminWorking';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/office" element={<OfficePage />} />
         <Route path="/employee" element={<EmployeePage />} />
         <Route path="/monitoring" element={<Monitoring />} />
+        <Route path="/adminWorking" element={<AdminWorking />} />
         </Routes>
       </Router>
     </div>
