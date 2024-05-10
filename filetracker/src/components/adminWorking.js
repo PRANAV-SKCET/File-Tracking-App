@@ -1,7 +1,27 @@
+import { useNavigate } from 'react-router-dom';
+import '../adminWorking.css';
+
 export default function AdminWorking() {
-    return(
-        <div>
-            <h1>Admin Working</h1>
+    const navigate = useNavigate();
+
+    const handleCardClick = (route) => {
+        navigate(route);
+    };
+
+    return (
+        <div className="admin-working">
+            <div className="card" onClick={() => handleCardClick('/add-office')}>
+                <h2>Add Office</h2>
+            </div>
+            <div className="card" onClick={() => handleCardClick('/delete-office')}>
+                <h2>Delete Office</h2>
+            </div>
+            <div className="card" onClick={() => handleCardClick('/add-employee')}>
+                <h2>Add Employee</h2>
+            </div>
+            <div className="card" onClick={() => handleCardClick('/delete-employee')}>
+                <h2>Delete Employee</h2>
+            </div>
         </div>
     );
 }

@@ -14,6 +14,10 @@ import { useState } from 'react';
 import AdminNavbar from "./components/adminNavbar";
 import AdminInfo from './components/adminInfo';
 import AdminAbout from './components/adminAbout';
+import AddOffice from './components/addOffice';
+import DeleteOffice from './components/deleteOffice';
+import AddEmployee from './components/addEmployee';
+import DeleteEmployee from './components/deleteEmployee';
 
 
 function App() {
@@ -43,6 +47,10 @@ const[isAdminLoggedIn,setIsAdminLoggedIn] = useState(false);
         <Route path="/admininfo" element={<AdminInfo />} />
         <Route path="/adminabout" element={<AdminAbout />} />
         <Route path="/adminGO" element={<AdminGO />} />
+        <Route path="/add-office" element={<AddOffice />} />
+        <Route path="/delete-office" element={<DeleteOffice />} />
+        <Route path="/add-employee" element={<AddEmployee />} />
+        <Route path="/delete-employee" element={<DeleteEmployee />} />
         </Routes>
       </Router>
     </div>

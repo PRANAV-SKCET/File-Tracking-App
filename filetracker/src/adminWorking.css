@@ -1,0 +1,33 @@
+.admin-working {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.card {
+    width: 200px;
+    height: 150px;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: #007bff;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card:hover {
+    background-color: #0056b3;
+}
+
+.card h2 {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+}
+
