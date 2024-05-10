@@ -110,4 +110,16 @@ public class UserController {
         officeUsersRepo.delete(officeUsers);
         return "Office Deleted";
     }
+
+    @DeleteMapping("/deleteEmployee/{employeeId}")
+    public String deleteEmployee(@PathVariable int employeeId)
+    {
+        EmployeeUsers employeeUsers = employeeUsersRepo.findById(employeeId).orElse(null);
+        if(employeeUsers==null)
+        {
+            return "Employee Not Found";
+        }
+        employeeUsersRepo.delete(employeeUsers);
+        return "Employee Deleted";
+    }
 }

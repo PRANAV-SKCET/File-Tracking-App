@@ -10,15 +10,15 @@ public class EmployeeUsers {
     private String employeeName;
     private String email;
     private String password;
-    private int office_Id;
+    private int officeId;
     public EmployeeUsers() {
     }
-    public EmployeeUsers(int employeeId, String employeeName, String email, String password, int office_Id) {
+    public EmployeeUsers(int employeeId, String employeeName, String email, String password, int officeId) {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.email = email;
         this.password = password;
-        this.office_Id = office_Id;
+        this.officeId = officeId;
     }
     public int getEmployeeId() {
         return employeeId;
@@ -44,11 +44,11 @@ public class EmployeeUsers {
     public void setPassword(String password) {
         this.password = password;
     }
-    public int getOffice_Id() {
-        return office_Id;
+    public int getOfficeId() {
+        return officeId;
     }
-    public void setOffice_Id(int office_Id) {
-        this.office_Id = office_Id;
+    public void setOfficeId(int officeId) {
+        this.officeId = officeId;
     }
 
     
