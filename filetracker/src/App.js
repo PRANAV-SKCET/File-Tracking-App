@@ -23,12 +23,15 @@ import DeleteEmployee from './components/deleteEmployee';
 function App() {
 
 const[isAdminLoggedIn,setIsAdminLoggedIn] = useState(false);
+const[districtId,setDistrictId] = useState('');
 
   return (
     <AuthContext.Provider
     value={{
       isAdminLoggedIn,
       setIsAdminLoggedIn,
+      districtId,
+      setDistrictId
     }}
   >
 

@@ -3,8 +3,11 @@ package com.springboot.springboot.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.springboot.entity.AdminUsers;
@@ -37,6 +40,13 @@ public class UserController {
         return false;
     }
 
+    @GetMapping("/AdminLoginDetails/{email}/{password}")
+    public AdminUsers AdminLoginDetails(@PathVariable String email, @PathVariable String password)
+    {
+        List<AdminUsers> li = adminUsersRepo.ableToLogin(email,password);
+        return li.get(0);
+    }
+
     @GetMapping("/OfficeLogin/{email}/{password}")
     public Boolean OfficeLogin(@PathVariable String email, @PathVariable String password)
     {
@@ -57,5 +67,29 @@ public class UserController {
             return true;
         }
         return false;
+    }
+
+    @PostMapping("/addOffice")
+    public String AddOffice(@RequestBody OfficeUsers officeUsers)
+    {
+        List<OfficeUsers> li = officeUsersRepo.checkExist(officeUsers.getEmail());
+        if(li.size()>0)
+        {
+            return "Office Already Exist";
+        }
+        officeUsersRepo.save(officeUsers);
+        return "New Office Added";
+    }
+
+    @DeleteMapping("/deleteOffice/{officeId}")
+    public String deleteOffice(@PathVariable int officeId)
+    {
+        OfficeUsers officeUsers = officeUsersRepo.findById(officeId).orElse(null);
+        if(officeUsers==null)
+        {
+            return "Office Not Found";
+        }
+        officeUsersRepo.delete(officeUsers);
+        return "Office Deleted";
     }
 }

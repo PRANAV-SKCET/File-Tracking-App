@@ -10,7 +10,7 @@ export default function AdminPage() {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    const { setIsAdminLoggedIn} = useContext(AuthContext);
+    const { setIsAdminLoggedIn,setDistrictId} = useContext(AuthContext);
 
 
     const handleEmailChange = (e) => {
@@ -28,6 +28,8 @@ export default function AdminPage() {
             const response = await axios.get(`http://localhost:8080/AdminLogin/${email}/${password}`);
             if (response.data === true) 
             {
+                const response2 = await axios.get(`http://localhost:8080/AdminLoginDetails/${email}/${password}`);
+                setDistrictId(response2.data.districtId);
                 setIsAdminLoggedIn(true);
                 setMessage('Login successful');
                 setTimeout(() => {

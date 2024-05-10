@@ -1,24 +1,23 @@
 package com.springboot.springboot.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class OfficeUsers {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int officeId;
     private  String officeName;
+    private  String officeLocation;
     private String email;
     private String password;
     private int districtId;
     public OfficeUsers() {
     }
-    public OfficeUsers(int officeId, String officeName, String email, String password, int districtId) {
+    public OfficeUsers(int officeId, String officeName, String email, String password, int districtId,String officeLocation) {
         this.officeId = officeId;
         this.officeName = officeName;
+        this.officeLocation = officeLocation;
         this.email = email;
         this.password = password;
         this.districtId = districtId;
@@ -34,6 +33,13 @@ public class OfficeUsers {
     }
     public void setOfficeName(String officeName) {
         this.officeName = officeName;
+    }
+    public String getOfficeLocation() {
+        return officeLocation;
+    }
+
+    public void setOfficeLocation(String officeLocation) {
+        this.officeLocation = officeLocation;
     }
     public String getEmail() {
         return email;

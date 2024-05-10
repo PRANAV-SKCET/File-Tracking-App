@@ -16,12 +16,6 @@ export default function AdminWorking() {
             <div className="card" onClick={() => handleCardClick('/delete-office')}>
                 <h2>Delete Office</h2>
             </div>
-            <div className="card" onClick={() => handleCardClick('/add-employee')}>
-                <h2>Add Employee</h2>
-            </div>
-            <div className="card" onClick={() => handleCardClick('/delete-employee')}>
-                <h2>Delete Employee</h2>
-            </div>
         </div>
     );
 }
