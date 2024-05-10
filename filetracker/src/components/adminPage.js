@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../adminPage.css';
+import { AuthContext } from './context';
+
 
 export default function AdminPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
+    const { setIsAdminLoggedIn} = useContext(AuthContext);
+
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -24,10 +28,11 @@ export default function AdminPage() {
             const response = await axios.get(`http://localhost:8080/AdminLogin/${email}/${password}`);
             if (response.data === true) 
             {
+                setIsAdminLoggedIn(true);
                 setMessage('Login successful');
                 setTimeout(() => {
                     navigate("/adminWorking");
-                }, 1000);
+                }, 0);
             } else 
             {
                 setMessage('Invalid email or password. Please try again.');
@@ -41,6 +46,8 @@ export default function AdminPage() {
     };
 
     return (
+
+        <div>
         <div className="admin-container">
             <h1 className="admin-title">Admin Login</h1>
             <form onSubmit={handleSubmit}>
@@ -59,6 +66,7 @@ export default function AdminPage() {
             {message && (
                 <div className="response-message">{message}</div>
             )}
+        </div>
         </div>
     );
 }

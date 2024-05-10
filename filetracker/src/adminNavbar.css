@@ -1,0 +1,36 @@
+.admin-navbar {
+    background-color: #333; /* Dark background color */
+    color: #fff; /* Text color */
+    padding: 10px; /* Padding around navbar */
+}
+
+.admin-navbar ul {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0;
+}
+
+.admin-navbar ul li {
+    display: inline; /* Display list items horizontally */
+    margin-right: 20px; /* Add space between list items */
+}
+
+.admin-navbar ul li:last-child {
+    margin-right: 0; /* Remove margin from last list item */
+}
+
+.admin-navbar a {
+    color: #fff; /* Link color */
+    text-decoration: none; /* Remove underline from links */
+}
+
+.admin-navbar button {
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Button text color */
+    border: none; /* Remove button border */
+    padding: 8px 16px; /* Padding inside the button */
+    cursor: pointer; /* Show pointer cursor on hover */
+}
+
+.admin-navbar button:hover {
+    background-color: #0056b3; /* Darken button color on hover */
+}
