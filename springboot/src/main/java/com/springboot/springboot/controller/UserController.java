@@ -46,6 +46,12 @@ public class UserController {
         List<AdminUsers> li = adminUsersRepo.ableToLogin(email,password);
         return li.get(0);
     }
+    @GetMapping("/OfficeLoginDetails/{email}/{password}")
+    public OfficeUsers OfficeLoginDetails(@PathVariable String email, @PathVariable String password)
+    {
+        List<OfficeUsers> li = officeUsersRepo.ableToLogin(email,password);
+        return li.get(0);
+    }
 
     @GetMapping("/OfficeLogin/{email}/{password}")
     public Boolean OfficeLogin(@PathVariable String email, @PathVariable String password)
@@ -79,6 +85,18 @@ public class UserController {
         }
         officeUsersRepo.save(officeUsers);
         return "New Office Added";
+    }
+
+    @PostMapping("/addEmployee")
+    public String AddEmployee(@RequestBody EmployeeUsers employeeUsers)
+    {
+        List<EmployeeUsers> li = employeeUsersRepo.checkExist(employeeUsers.getEmail());
+        if(li.size()>0)
+        {
+            return "Employee Already Exist";
+        }
+        employeeUsersRepo.save(employeeUsers);
+        return "New Employee Added";
     }
 
     @DeleteMapping("/deleteOffice/{officeId}")

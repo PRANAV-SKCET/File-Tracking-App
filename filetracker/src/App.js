@@ -18,12 +18,15 @@ import AddOffice from './components/addOffice';
 import DeleteOffice from './components/deleteOffice';
 import AddEmployee from './components/addEmployee';
 import DeleteEmployee from './components/deleteEmployee';
+import OfficeNavbar from './components/officeNavbar';
 
 
 function App() {
 
 const[isAdminLoggedIn,setIsAdminLoggedIn] = useState(false);
 const[districtId,setDistrictId] = useState('');
+const[isOfficeLoggedIn,setIsOfficeLoggedIn] = useState(false);
+const[officeId,setOfficeId] = useState('');
 
   return (
     <AuthContext.Provider
@@ -31,13 +34,18 @@ const[districtId,setDistrictId] = useState('');
       isAdminLoggedIn,
       setIsAdminLoggedIn,
       districtId,
-      setDistrictId
+      setDistrictId,
+      isOfficeLoggedIn,
+      setIsOfficeLoggedIn,
+      officeId,
+      setOfficeId
     }}
   >
 
     <div className="App">
       <Router>
       {isAdminLoggedIn && <AdminNavbar/>}
+      {isOfficeLoggedIn && <OfficeNavbar/>}
         <Routes>
         <Route path="/" element={<OpeningPage />} />
         <Route path="/admin" element={<AdminPage />} />

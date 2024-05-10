@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../officePage.css';
+import { AuthContext } from './context';
 
 export default function OfficePage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
+    const { setIsOfficeLoggedIn,setOfficeId} = useContext(AuthContext);
+
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -24,10 +27,13 @@ export default function OfficePage() {
             const response = await axios.get(`http://localhost:8080/OfficeLogin/${email}/${password}`);
             if (response.data === true) 
             {
+                const response2 = await axios.get(`http://localhost:8080/OfficeLoginDetails/${email}/${password}`);
+                setOfficeId(response2.data.officeId);
+                setIsOfficeLoggedIn(true);
                 setMessage('Login successful');
                 setTimeout(() => {
                     navigate("/officeWorking");
-                }, 1000);
+                }, 0);
             } else 
             {
                 setMessage('Invalid email or password. Please try again.');

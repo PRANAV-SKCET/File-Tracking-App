@@ -1,14 +1,11 @@
 package com.springboot.springboot.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class EmployeeUsers {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int employeeId;
     private String employeeName;
     private String email;
