@@ -18,7 +18,7 @@ export default function OpeningPage() {
         </div>
         <div className="card">
           <Link to="/employee" className="card-link">
-            <h2>Employee Login</h2>
+            <h2>Employee LoginN</h2>
           </Link>
         </div>
         <div className="card">
