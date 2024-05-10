@@ -17,7 +17,7 @@ export default function OfficeNavbar() {
         <nav className="admin-navbar">
             <ul>
                 <li><Link to="/officeWorking">Home</Link></li>
-                <li><Link to="/officeinfo">Office Information</Link></li>
+                <li><Link to="/addAppType">Add Application Type</Link></li>
                 <li><Link to="/officeabout">About Us</Link></li>
                 <li><Link to="/officeGO">G.O</Link></li>
             </ul>

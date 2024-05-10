@@ -19,6 +19,8 @@ import DeleteOffice from './components/deleteOffice';
 import AddEmployee from './components/addEmployee';
 import DeleteEmployee from './components/deleteEmployee';
 import OfficeNavbar from './components/officeNavbar';
+import AddApplication from './components/addApplication';
+import AddAppType from './components/addAppType';
 
 
 function App() {
@@ -62,6 +64,8 @@ const[officeId,setOfficeId] = useState('');
         <Route path="/delete-office" element={<DeleteOffice />} />
         <Route path="/add-employee" element={<AddEmployee />} />
         <Route path="/delete-employee" element={<DeleteEmployee />} />
+        <Route path="/add-application" element={<AddApplication />} />
+        <Route path="/addAppType" element={<AddAppType />} />
         </Routes>
       </Router>
     </div>

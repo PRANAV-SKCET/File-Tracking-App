@@ -16,6 +16,9 @@ export default function OfficeWorking() {
             <div className="card" onClick={() => handleCardClick('/delete-employee')}>
                 <h2>Delete Employee</h2>
             </div>
+            <div className="card" onClick={() => handleCardClick('/add-application')}>
+                <h2>New Application</h2>
+            </div>
         </div>
     );
 }
