@@ -8,7 +8,7 @@ export default function OpeningPage() {
       <div className="card-container">
         <div className="card">
           <Link to="/admin" className="card-link">
-            <h2>AAdmin Login</h2>
+            <h2>Admin Login</h2>
           </Link>
         </div>
         <div className="card">
@@ -23,7 +23,7 @@ export default function OpeningPage() {
         </div>
         <div className="card">
           <Link to="/monitoring" className="card-link">
-            <h2>Monitoringg</h2>
+            <h2>Monitoring</h2>
           </Link>
         </div>
       </div>
