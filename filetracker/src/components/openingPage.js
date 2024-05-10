@@ -23,7 +23,7 @@ export default function OpeningPage() {
         </div>
         <div className="card">
           <Link to="/monitoring" className="card-link">
-            <h2>Monitoring</h2>
+            <h2>Monitoringg</h2>
           </Link>
         </div>
       </div>
