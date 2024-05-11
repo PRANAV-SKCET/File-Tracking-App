@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.springboot.springboot.entity.EmployeeUsers;
-import com.springboot.springboot.entity.OfficeUsers;
 
 public interface EmployeeUsersRepo extends JpaRepository<EmployeeUsers,Integer>{
     @Modifying
@@ -20,5 +19,10 @@ public interface EmployeeUsersRepo extends JpaRepository<EmployeeUsers,Integer>{
     @Transactional
     @Query(value = "SELECT * from employee_users where email=?1 ", nativeQuery = true)
     public List<EmployeeUsers> checkExist(String email);
+
+    @Modifying
+    @Transactional
+    @Query(value = "SELECT * from employee_users where office_id=?1 ", nativeQuery = true)
+    public List<EmployeeUsers> findEmployeeByOffice(int officeId);
     
 }

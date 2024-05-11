@@ -151,4 +151,11 @@ public class UserController {
         for(ApplicationSteps applicationSteps1:applicationSteps)
         applicationStepsRepo.save(applicationSteps1);
     }
+
+    @GetMapping("/getEmployees/{officeId}")
+    public List<EmployeeUsers> getEmployee(@PathVariable int officeId)
+    {
+        List<EmployeeUsers> li = employeeUsersRepo.findEmployeeByOffice(officeId);
+        return li;
+    }
 }
