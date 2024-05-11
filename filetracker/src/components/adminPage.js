@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../adminPage.css';
 import { AuthContext } from './context';
+import Navbar from './navbar';
 
 
 export default function AdminPage() {
@@ -10,7 +11,7 @@ export default function AdminPage() {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    const { setIsAdminLoggedIn,setDistrictId} = useContext(AuthContext);
+    const { setIsAdminLoggedIn,setDistrictId,isAdminLoggedIn} = useContext(AuthContext);
 
 
     const handleEmailChange = (e) => {
@@ -50,6 +51,7 @@ export default function AdminPage() {
     return (
 
         <div>
+            {!isAdminLoggedIn && <Navbar/>}
         <div className="admin-container">
             <h1 className="admin-title">Admin Login</h1>
             <form onSubmit={handleSubmit}>

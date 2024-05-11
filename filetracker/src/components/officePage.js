@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../officePage.css';
 import { AuthContext } from './context';
+import Navbar from './navbar';
 
 export default function OfficePage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    const { setIsOfficeLoggedIn,setOfficeId,setDistrictId} = useContext(AuthContext);
+    const { setIsOfficeLoggedIn,setOfficeId,setDistrictId,isOfficeLoggedIn} = useContext(AuthContext);
 
 
     const handleEmailChange = (e) => {
@@ -48,6 +49,8 @@ export default function OfficePage() {
     };
 
     return (
+        <div>
+            {!isOfficeLoggedIn &&<Navbar/>}
         <div className="admin-container">
             <h1 className="admin-title">Office Login</h1>
             <form onSubmit={handleSubmit}>
@@ -66,6 +69,7 @@ export default function OfficePage() {
             {message && (
                 <div className="response-message">{message}</div>
             )}
+        </div>
         </div>
     );
 }
