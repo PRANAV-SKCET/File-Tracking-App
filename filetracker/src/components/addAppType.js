@@ -10,7 +10,7 @@ export default function AddAppType() {
     const { officeId, districtId } = useContext(AuthContext);
 
     const handleAddStep = () => {
-        setSteps([...steps, { employeeId: '', employeeName: '', description: '', noOfDays: '' }]);
+        setSteps([...steps, { employeeId: '', employeeName: '', description: '', noOfDays: '', employeeDesignation: '',applicationId:applicationId, districtId:districtId,officeId:officeId }]);
     };
 
     const handleStepChange = (index, field, value) => {
@@ -29,21 +29,19 @@ export default function AddAppType() {
         e.preventDefault();
 
         try {
-            // Save application info
-            await axios.post('/api/saveApplicationInfo', {
+            const response =  await axios.post('http://localhost:8080/saveApplicationType', {
                 applicationId,
                 applicationName,
                 officeId,
                 districtId
             });
-
+            console.log(response.data);
             // Save application steps
-            await axios.post('/api/saveApplicationSteps', {
-                applicationId,
-                steps
-            });
+            await axios.post('http://localhost:8080/saveApplicationSteps', 
 
-            // Reset form fields after successful submission
+                steps
+            );
+            console.log(steps);
             setApplicationId('');
             setApplicationName('');
             setSteps([]);
@@ -55,10 +53,10 @@ export default function AddAppType() {
     };
 
     return (
-        <div className="container">
+        <div className="containerType">
             <h1>New Application Type</h1>
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
+                <div className="form-groupType">
                     <label htmlFor="applicationId">Application ID:</label>
                     <input
                         type="text"
@@ -67,7 +65,7 @@ export default function AddAppType() {
                         onChange={(e) => setApplicationId(e.target.value)}
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-groupType">
                     <label htmlFor="applicationName">Application Name:</label>
                     <input
                         type="text"
@@ -79,7 +77,7 @@ export default function AddAppType() {
                 <h2>Steps</h2>
                 {steps.map((step, index) => (
                     <div className="step" key={index}>
-                        <div className="form-group">
+                        <div className="form-groupType">
                             <label htmlFor={`employeeId_${index}`}>Employee ID:</label>
                             <input
                                 type="text"
@@ -88,7 +86,7 @@ export default function AddAppType() {
                                 onChange={(e) => handleStepChange(index, 'employeeId', e.target.value)}
                             />
                         </div>
-                        <div className="form-group">
+                        <div className="form-groupType">
                             <label htmlFor={`employeeName_${index}`}>Employee Name:</label>
                             <input
                                 type="text"
@@ -97,7 +95,7 @@ export default function AddAppType() {
                                 onChange={(e) => handleStepChange(index, 'employeeName', e.target.value)}
                             />
                         </div>
-                        <div className="form-group">
+                        <div className="form-groupType">
                             <label htmlFor={`description_${index}`}>Description:</label>
                             <input
                                 type="text"
@@ -106,13 +104,22 @@ export default function AddAppType() {
                                 onChange={(e) => handleStepChange(index, 'description', e.target.value)}
                             />
                         </div>
-                        <div className="form-group">
+                        <div className="form-groupType">
                             <label htmlFor={`noOfDays_${index}`}>No of Days:</label>
                             <input
                                 type="text"
                                 id={`noOfDays_${index}`}
                                 value={step.noOfDays}
                                 onChange={(e) => handleStepChange(index, 'noOfDays', e.target.value)}
+                            />
+                        </div>
+                        <div className="form-groupType">
+                            <label htmlFor={`employeeDesignation_${index}`}>Employee Designation:</label>
+                            <input
+                                type="text"
+                                id={`employeeDesignation_${index}`}
+                                value={step.employeeDesignation}
+                                onChange={(e) => handleStepChange(index, 'employeeDesignation', e.target.value)}
                             />
                         </div>
                         <button type="button" onClick={() => handleRemoveStep(index)}>Remove Step</button>

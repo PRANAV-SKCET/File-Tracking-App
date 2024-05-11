@@ -1,4 +1,4 @@
-.container {
+.containerType {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
@@ -13,7 +13,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-.form-group {
+.form-groupType {
     margin-bottom: 15px;
 }
 
@@ -26,14 +26,14 @@ label {
     display: block;
 }
 
-input[type="text"] {
+/* input[type="text"] {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
     margin-top: 5px;
-}
+} */
 
 button {
     cursor: pointer;

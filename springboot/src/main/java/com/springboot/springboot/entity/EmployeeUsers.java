@@ -8,14 +8,17 @@ public class EmployeeUsers {
     @Id
     private int employeeId;
     private String employeeName;
+    private String employeeDesignation;
     private String email;
     private String password;
     private int officeId;
     public EmployeeUsers() {
     }
-    public EmployeeUsers(int employeeId, String employeeName, String email, String password, int officeId) {
+    public EmployeeUsers(int employeeId, String employeeName, String employeeDesignation, String email, String password,
+            int officeId) {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
+        this.employeeDesignation = employeeDesignation;
         this.email = email;
         this.password = password;
         this.officeId = officeId;
@@ -31,6 +34,12 @@ public class EmployeeUsers {
     }
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
+    }
+    public String getEmployeeDesignation() {
+        return employeeDesignation;
+    }
+    public void setEmployeeDesignation(String employeeDesignation) {
+        this.employeeDesignation = employeeDesignation;
     }
     public String getEmail() {
         return email;
@@ -51,5 +60,4 @@ public class EmployeeUsers {
         this.officeId = officeId;
     }
 
-    
 }

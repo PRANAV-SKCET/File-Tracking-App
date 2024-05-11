@@ -11,9 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.springboot.entity.AdminUsers;
+import com.springboot.springboot.entity.ApplicationSteps;
+import com.springboot.springboot.entity.ApplicationType;
 import com.springboot.springboot.entity.EmployeeUsers;
 import com.springboot.springboot.entity.OfficeUsers;
 import com.springboot.springboot.repository.AdminUsersRepo;
+import com.springboot.springboot.repository.ApplicationStepsRepo;
+import com.springboot.springboot.repository.ApplicationTypeRepo;
 import com.springboot.springboot.repository.EmployeeUsersRepo;
 import com.springboot.springboot.repository.OfficeUsersRepo;
 
@@ -28,6 +32,12 @@ public class UserController {
 
     @Autowired
     private EmployeeUsersRepo employeeUsersRepo;
+
+    @Autowired
+    private ApplicationTypeRepo applicationTypeRepo;
+
+    @Autowired
+    private ApplicationStepsRepo applicationStepsRepo;
 
     @GetMapping("/AdminLogin/{email}/{password}")
     public Boolean AdminLogin(@PathVariable String email, @PathVariable String password)
@@ -121,5 +131,24 @@ public class UserController {
         }
         employeeUsersRepo.delete(employeeUsers);
         return "Employee Deleted";
+    }
+
+    @PostMapping("/saveApplicationType")
+    public String saveApplicationType(@RequestBody ApplicationType applicationType)
+    {
+        ApplicationType temp = applicationTypeRepo.findById(applicationType.getApplicationId()).orElse(null);
+        if(temp!=null)
+        {
+            return "Application Type Already Exist";
+        }
+        applicationTypeRepo.save(applicationType);
+        return "Application Added";
+    }
+
+    @PostMapping("/saveApplicationSteps")
+    public void saveApplicationSteps(@RequestBody List<ApplicationSteps> applicationSteps)
+    {
+        for(ApplicationSteps applicationSteps1:applicationSteps)
+        applicationStepsRepo.save(applicationSteps1);
     }
 }

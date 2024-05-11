@@ -11,6 +11,7 @@ function AddEmployee() {
     const [formData, setFormData] = useState({
         employeeId: '',
         employeeName: '',
+        employeeDesignation:'',
         email: '',
         password: '',
         officeId: officeId
@@ -69,6 +70,16 @@ function AddEmployee() {
                         value={formData.employeeName}
                         onChange={handleChange}
                         label="Employee Name"
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        required
+                    />
+                    <TextField
+                        name="employeeDesignation"
+                        value={formData.employeeDesignation}
+                        onChange={handleChange}
+                        label="Employee Designation"
                         variant="outlined"
                         margin="normal"
                         fullWidth
