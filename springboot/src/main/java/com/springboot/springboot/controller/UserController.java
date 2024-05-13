@@ -158,4 +158,11 @@ public class UserController {
         List<EmployeeUsers> li = employeeUsersRepo.findEmployeeByOffice(officeId);
         return li;
     }
+
+    @GetMapping("/getApplicationTypes/{officeId}")
+    public List<ApplicationType> getApplicationTypes(@PathVariable int officeId)
+    {
+        List<ApplicationType> li = applicationTypeRepo.findApplicationTypeByOffice(officeId);
+        return li;
+    }
 }

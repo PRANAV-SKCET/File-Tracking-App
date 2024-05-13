@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import '../addApplications.css'; // Import CSS file
+import { MenuItem } from '@mui/material';
+import axios from 'axios';
+import '../addApplications.css';
+import { AuthContext } from './context';
 
 export default function AddApplication() {
+    const { officeId } = useContext(AuthContext);
+
     const [applicationData, setApplicationData] = useState({
         applicationNumber: '',
         applicantName: '',
@@ -17,19 +22,42 @@ export default function AddApplication() {
         applicationClosedDate: ''
     });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setApplicationData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
+    const [applicationTypes, setApplicationTypes] = useState([]);
+
+    useEffect(() => {
+        fetchApplicationTypes();
+    }, []);
+
+    const fetchApplicationTypes = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/getApplicationTypes/${officeId}`);
+            const transformedData = response.data.map(({ applicationId, applicationName }) => ({ applicationId, applicationName }));
+            setApplicationTypes(transformedData);
+        } catch (error) {
+            console.error('Error fetching application types:', error);
+        }
     };
 
-    const handleSubmit = (e) => {
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        if (name === 'applicationTypeId') {
+            const selectedType = applicationTypes.find(type => type.applicationId === value);
+            setApplicationData(prevState => ({
+                ...prevState,
+                [name]: value,
+                applicationName: selectedType ? selectedType.applicationName : ''
+            }));
+        } else {
+            setApplicationData(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // You can handle form submission here, like sending the data to an API
-        console.log(applicationData);
-        // Reset form fields
+        await axios.post("http://localhost:8080/createApplication", applicationData);
         setApplicationData({
             applicationNumber: '',
             applicantName: '',
@@ -45,19 +73,11 @@ export default function AddApplication() {
     };
 
     return (
-        <div className="form-container"> {/* Apply CSS class */}
+        <div className="form-container">
             <h1>Add Application</h1>
             <form onSubmit={handleSubmit}>
                 <TextField
-                    label="Application Number"
-                    variant="outlined"
-                    name="applicationNumber"
-                    value={applicationData.applicationNumber}
-                    onChange={handleChange}
-                    fullWidth
-                    margin="normal"
-                />
-                    <TextField
+                    select
                     label="Application Type ID"
                     variant="outlined"
                     name="applicationTypeId"
@@ -65,12 +85,27 @@ export default function AddApplication() {
                     onChange={handleChange}
                     fullWidth
                     margin="normal"
-                />
+                >
+                    {applicationTypes.map(type => (
+                        <MenuItem key={type.applicationId} value={type.applicationId}>
+                            {type.applicationId}
+                        </MenuItem>
+                    ))}
+                </TextField>
                 <TextField
                     label="Application Name"
                     variant="outlined"
                     name="applicationName"
                     value={applicationData.applicationName}
+                    onChange={handleChange}
+                    fullWidth
+                    margin="normal"
+                />
+                <TextField
+                    label="Application Number"
+                    variant="outlined"
+                    name="applicationNumber"
+                    value={applicationData.applicationNumber}
                     onChange={handleChange}
                     fullWidth
                     margin="normal"
