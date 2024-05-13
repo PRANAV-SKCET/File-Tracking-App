@@ -23,6 +23,7 @@ export default function AddApplication() {
     });
 
     const [applicationTypes, setApplicationTypes] = useState([]);
+    const [responseMessage, setResponseMessage] = useState(null);
 
     useEffect(() => {
         fetchApplicationTypes();
@@ -32,6 +33,7 @@ export default function AddApplication() {
         try {
             const response = await axios.get(`http://localhost:8080/getApplicationTypes/${officeId}`);
             const transformedData = response.data.map(({ applicationId, applicationName }) => ({ applicationId, applicationName }));
+            console.log(transformedData);
             setApplicationTypes(transformedData);
         } catch (error) {
             console.error('Error fetching application types:', error);
@@ -57,19 +59,33 @@ export default function AddApplication() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:8080/createApplication", applicationData);
-        setApplicationData({
-            applicationNumber: '',
-            applicantName: '',
-            applicantMail: '',
-            applicantMobileNumber: '',
-            applicantAddress: '',
-            applicationTypeId: '',
-            applicationName: '',
-            applicationStatus: '',
-            applicationDate: '',
-            applicationClosedDate: ''
-        });
+        try {
+            const response = await axios.post("http://localhost:8080/createApplication", applicationData);
+            // Set response to state to display it
+            setResponseMessage(response.data);
+
+            // Clear response after 3 seconds
+            setTimeout(() => {
+                setResponseMessage(null);
+            }, 3000);
+
+            // Clear form fields
+            setApplicationData({
+                applicationNumber: '',
+                applicantName: '',
+                applicantMail: '',
+                applicantMobileNumber: '',
+                applicantAddress: '',
+                applicationTypeId: '',
+                applicationName: '',
+                applicationStatus: '',
+                applicationDate: '',
+                applicationClosedDate: ''
+            });
+        } catch (error) {
+            console.error('Error submitting application:', error);
+            // Handle error if necessary
+        }
     };
 
     return (
@@ -172,11 +188,15 @@ export default function AddApplication() {
                     onChange={handleChange}
                     fullWidth
                     margin="normal"
-                />
-                <Button type="submit" variant="contained" color="primary">
+                />                <Button type="submit" variant="contained" color="primary">
                     Submit
                 </Button>
             </form>
+            {responseMessage && (
+                <div className="response-message">
+                    {responseMessage}
+                </div>
+            )}
         </div>
     );
 }

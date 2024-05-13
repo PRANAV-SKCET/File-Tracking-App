@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.springboot.entity.AdminUsers;
 import com.springboot.springboot.entity.ApplicationSteps;
 import com.springboot.springboot.entity.ApplicationType;
+import com.springboot.springboot.entity.Applications;
 import com.springboot.springboot.entity.EmployeeUsers;
 import com.springboot.springboot.entity.OfficeUsers;
 import com.springboot.springboot.repository.AdminUsersRepo;
 import com.springboot.springboot.repository.ApplicationStepsRepo;
 import com.springboot.springboot.repository.ApplicationTypeRepo;
+import com.springboot.springboot.repository.ApplicationsRepo;
 import com.springboot.springboot.repository.EmployeeUsersRepo;
 import com.springboot.springboot.repository.OfficeUsersRepo;
 
@@ -38,6 +40,9 @@ public class UserController {
 
     @Autowired
     private ApplicationStepsRepo applicationStepsRepo;
+
+    @Autowired
+    private ApplicationsRepo applicationsRepo;
 
     @GetMapping("/AdminLogin/{email}/{password}")
     public Boolean AdminLogin(@PathVariable String email, @PathVariable String password)
@@ -164,5 +169,17 @@ public class UserController {
     {
         List<ApplicationType> li = applicationTypeRepo.findApplicationTypeByOffice(officeId);
         return li;
+    }
+
+    @PostMapping("/createApplication")
+    public String createApplication(@RequestBody Applications applications)
+    {
+        Applications temp = applicationsRepo.findById(applications.getApplicationNumber()).orElse(null);
+        if(temp!=null)
+        {
+            return "Application Already Exist";
+        }
+        applicationsRepo.save(applications);
+        return "Application added Successfully";
     }
 }
