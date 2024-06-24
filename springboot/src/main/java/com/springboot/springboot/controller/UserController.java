@@ -174,6 +174,7 @@ public class UserController {
     @PostMapping("/createApplication")
     public String createApplication(@RequestBody Applications applications)
     {
+        
         Applications temp = applicationsRepo.findById(applications.getApplicationNumber()).orElse(null);
         if(temp!=null)
         {

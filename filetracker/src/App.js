@@ -21,6 +21,7 @@ import DeleteEmployee from './components/deleteEmployee';
 import OfficeNavbar from './components/officeNavbar';
 import AddApplication from './components/addApplication';
 import AddAppType from './components/addAppType';
+import EmployeeNavbar from './components/employeeNavbar';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
 const[isAdminLoggedIn,setIsAdminLoggedIn] = useState(false);
 const[districtId,setDistrictId] = useState('');
 const[isOfficeLoggedIn,setIsOfficeLoggedIn] = useState(false);
+const[isEmployeeLoggedIn,setIsEmployeeLoggedIn] = useState(false);
 const[officeId,setOfficeId] = useState('');
 
   return (
@@ -40,7 +42,9 @@ const[officeId,setOfficeId] = useState('');
       isOfficeLoggedIn,
       setIsOfficeLoggedIn,
       officeId,
-      setOfficeId
+      setOfficeId,
+      isEmployeeLoggedIn,
+      setIsEmployeeLoggedIn
     }}
   >
 
@@ -48,6 +52,7 @@ const[officeId,setOfficeId] = useState('');
       <Router>
       {isAdminLoggedIn && <AdminNavbar/>}
       {isOfficeLoggedIn && <OfficeNavbar/>}
+      {isEmployeeLoggedIn && <EmployeeNavbar/>}
         <Routes>
         <Route path="/" element={<OpeningPage />} />
         <Route path="/admin" element={<AdminPage />} />

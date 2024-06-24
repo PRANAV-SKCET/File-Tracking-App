@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState ,useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AuthContext } from './context';
 import '../employeePage.css';
+import Navbar from './navbar';
 
 export default function EmployeePage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
+    const { setIsEmployeeLoggedIn,isEmployeeLoggedIn} = useContext(AuthContext);
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -24,10 +27,11 @@ export default function EmployeePage() {
             const response = await axios.get(`http://localhost:8080/EmployeeLogin/${email}/${password}`);
             if (response.data === true) 
             {
+                setIsEmployeeLoggedIn(true);
                 setMessage('Login successful');
                 setTimeout(() => {
                     navigate("/employeeWorking");
-                }, 1000);
+                }, 1);
             } else 
             {
                 setMessage('Invalid email or password. Please try again.');
@@ -41,6 +45,8 @@ export default function EmployeePage() {
     };
 
     return (
+        <div>
+            {!isEmployeeLoggedIn && <Navbar/>}
         <div className="admin-container">
             <h1 className="admin-title">Employee Login</h1>
             <form onSubmit={handleSubmit}>
@@ -59,6 +65,7 @@ export default function EmployeePage() {
             {message && (
                 <div className="response-message">{message}</div>
             )}
+        </div>
         </div>
     );
 }
