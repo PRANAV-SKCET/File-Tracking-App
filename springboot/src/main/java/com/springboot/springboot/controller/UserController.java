@@ -226,5 +226,6 @@ public class UserController {
         return jdbcTemplate.queryForList(sql, applicationId);
     }
     // king pranav
+    //queen madhu
     
 }
