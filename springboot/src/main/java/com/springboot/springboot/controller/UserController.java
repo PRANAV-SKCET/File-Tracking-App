@@ -3,6 +3,7 @@ package com.springboot.springboot.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,6 +44,9 @@ public class UserController {
 
     @Autowired
     private ApplicationsRepo applicationsRepo;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @GetMapping("/AdminLogin/{email}/{password}")
     public Boolean AdminLogin(@PathVariable String email, @PathVariable String password)
@@ -174,13 +178,28 @@ public class UserController {
     @PostMapping("/createApplication")
     public String createApplication(@RequestBody Applications applications)
     {
-        
         Applications temp = applicationsRepo.findById(applications.getApplicationNumber()).orElse(null);
         if(temp!=null)
         {
             return "Application Already Exist";
         }
+        createApplicationTable(applications.getApplicationNumber(),applications.getApplicationTypeId());
         applicationsRepo.save(applications);
         return "Application added Successfully";
     }
+
+    private void createApplicationTable(String applicationNumber,int applicationId) {
+        String tableName = applicationNumber;
+    
+        String createTableSql = "CREATE TABLE " + tableName + " (" +
+                                "`Step_No` INT AUTO_INCREMENT PRIMARY KEY, " +
+                                "`Assigned_To` VARCHAR(255), " +
+                                "`Employee_Id` VARCHAR(255), " +
+                                "`status` ENUM('Pending', 'Processing', 'Completed'), " +
+                                "`Date` VARCHAR(255), " +
+                                "`Comments` VARCHAR(255))";
+    
+        jdbcTemplate.execute(createTableSql);
+    }
+    
 }
