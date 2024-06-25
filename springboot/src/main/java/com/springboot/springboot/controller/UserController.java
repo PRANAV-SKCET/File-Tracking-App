@@ -5,6 +5,8 @@ import java.util.Map;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -225,7 +227,16 @@ public class UserController {
                      "FROM application_steps WHERE application_id = ?";
         return jdbcTemplate.queryForList(sql, applicationId);
     }
-    // king pranav
-    //queen madhu
-    
+
+     @GetMapping("/track/{applicationNumber}")
+    public ResponseEntity<?> trackApplication(@PathVariable String applicationNumber) {
+        try {
+            String sql = "SELECT * FROM " + applicationNumber ;
+            List<Map<String, Object>> results = jdbcTemplate.queryForList(sql);
+            return ResponseEntity.ok(results);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to track application");
+            
+        }
+    }
 }
