@@ -200,6 +200,7 @@ public class UserController {
                                 "`Comments` VARCHAR(255))";
     
         jdbcTemplate.execute(createTableSql);
+        //kirukiiiii
     }
     
 }
