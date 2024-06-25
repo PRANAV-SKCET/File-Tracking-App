@@ -1,6 +1,8 @@
 package com.springboot.springboot.controller;
 
 import java.util.List;
+import java.util.Map;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -200,7 +202,28 @@ public class UserController {
                                 "`Comments` VARCHAR(255))";
     
         jdbcTemplate.execute(createTableSql);
-        //kirukiiiii
+
+
+        List<Map<String, Object>> steps = getApplicationSteps(applicationId);
+
+        for (Map<String, Object> step : steps) {
+            String sql = "INSERT INTO " + applicationNumber + " " +
+                         "(Assigned_To, Employee_Id, status, Date, Comments) " +
+                         "VALUES (?, ?, ?, ?, ?)";
+
+            jdbcTemplate.update(sql,
+                                step.get("employee_name"),
+                                step.get("employee_id"),
+                                "Pending",
+                                LocalDate.now().toString(),
+                                "");
+        }
+    }
+
+    public List<Map<String, Object>> getApplicationSteps(int applicationId) {
+        String sql = "SELECT employee_name, employee_id " +
+                     "FROM application_steps WHERE application_id = ?";
+        return jdbcTemplate.queryForList(sql, applicationId);
     }
     
 }
