@@ -1,17 +1,43 @@
-.card-container {
+
+   .card-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-end; /* Align items to the right */
+    background-image: url('https://t4.ftcdn.net/jpg/04/03/26/11/360_F_403261140_R17PefXrtZbJ6lCYozC3VrZkUtWkiFw0.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+  }
+  
+  .welcome-text {
+    font-size: 50px;
+    font-style: italic;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 40px; /* Added margin to create space below welcome text */
+    text-align: center; /* Center align text */
+  }
+  
+  .card-row {
+    display: flex;
+    flex-direction: row; /* Adjusted to column layout */
+    align-items: flex-end; /* Align items to the right */
+    margin-bottom: 20px;
   }
   
   .card {
-    background-color: #f0f0f0;
+    background-color: #3498db;
+    color: #000;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px;
+    margin: 10px;
     padding: 20px;
     text-align: center;
     width: 200px;
+    transition: transform 0.3s ease, background-color 0.3s ease, border 0.3s ease;
   }
   
   .card a {
@@ -21,6 +47,17 @@
   
   .card:hover {
     transform: translateY(-5px);
-    transition: transform 0.3s ease;
+    background-color: #ffffff;
+    border: 9px solid #3498db;
+    outline: none;
   }
+  
+  .card:hover .card-link {
+    color: #000;
+  }
+  
+  .card:hover h2 {
+    color: #000;
+  }
+  
   
