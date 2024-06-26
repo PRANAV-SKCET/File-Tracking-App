@@ -118,8 +118,19 @@ public class UserController {
         {
             return "Employee Already Exist";
         }
+        // createEmployeeTable(employeeUsers.getEmail());
         employeeUsersRepo.save(employeeUsers);
         return "New Employee Added";
+    }
+
+    private void createEmployeeTable(String email) {
+        String createTableSql = "CREATE TABLE " + email + " ("
+                + "id INT AUTO_INCREMENT PRIMARY KEY, "
+                + "`Application Number` VARCHAR(255), "
+                + "status VARCHAR(255), "
+                + "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+                + ")";
+        jdbcTemplate.execute(createTableSql);
     }
 
     @DeleteMapping("/deleteOffice/{officeId}")

@@ -6,14 +6,13 @@ import '../employeePage.css';
 import Navbar from './navbar';
 
 export default function EmployeePage() {
-    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    const { setIsEmployeeLoggedIn,isEmployeeLoggedIn} = useContext(AuthContext);
+    const { setIsEmployeeLoggedIn,isEmployeeLoggedIn,employeeMail,setEmployeeMail} = useContext(AuthContext);
 
     const handleEmailChange = (e) => {
-        setEmail(e.target.value);
+        setEmployeeMail(e.target.value);
     };
 
     const handlePasswordChange = (e) => {
@@ -24,7 +23,7 @@ export default function EmployeePage() {
         e.preventDefault();
 
         try {
-            const response = await axios.get(`http://localhost:8080/EmployeeLogin/${email}/${password}`);
+            const response = await axios.get(`http://localhost:8080/EmployeeLogin/${employeeMail}/${password}`);
             if (response.data === true) 
             {
                 setIsEmployeeLoggedIn(true);
@@ -52,7 +51,7 @@ export default function EmployeePage() {
             <form onSubmit={handleSubmit}>
                 <label className="form-label">
                     Email:
-                    <input className="form-input" type="email" value={email} onChange={handleEmailChange} />
+                    <input className="form-input" type="email" value={employeeMail} onChange={handleEmailChange} />
                 </label>
                 <br />
                 <label className="form-label">

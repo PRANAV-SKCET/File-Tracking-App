@@ -22,6 +22,7 @@ import OfficeNavbar from './components/officeNavbar';
 import AddApplication from './components/addApplication';
 import AddAppType from './components/addAppType';
 import EmployeeNavbar from './components/employeeNavbar';
+import Pending from './components/peding';
 
 
 function App() {
@@ -31,6 +32,7 @@ const[districtId,setDistrictId] = useState('');
 const[isOfficeLoggedIn,setIsOfficeLoggedIn] = useState(false);
 const[isEmployeeLoggedIn,setIsEmployeeLoggedIn] = useState(false);
 const[officeId,setOfficeId] = useState('');
+const[employeeMail,setEmployeeMail] = useState('');
 
   return (
     <AuthContext.Provider
@@ -44,7 +46,9 @@ const[officeId,setOfficeId] = useState('');
       officeId,
       setOfficeId,
       isEmployeeLoggedIn,
-      setIsEmployeeLoggedIn
+      setIsEmployeeLoggedIn,
+      employeeMail,
+      setEmployeeMail,
     }}
   >
 
@@ -71,6 +75,7 @@ const[officeId,setOfficeId] = useState('');
         <Route path="/delete-employee" element={<DeleteEmployee />} />
         <Route path="/add-application" element={<AddApplication />} />
         <Route path="/addAppType" element={<AddAppType />} />
+        <Route path="/pending" element={<Pending />} />
         </Routes>
       </Router>
     </div>
