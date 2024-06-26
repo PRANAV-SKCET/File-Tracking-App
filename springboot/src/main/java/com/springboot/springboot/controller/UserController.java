@@ -118,16 +118,17 @@ public class UserController {
         {
             return "Employee Already Exist";
         }
-        // createEmployeeTable(employeeUsers.getEmail());
+        createEmployeeTable(employeeUsers.getEmail());
         employeeUsersRepo.save(employeeUsers);
         return "New Employee Added";
     }
 
     private void createEmployeeTable(String email) {
-        String createTableSql = "CREATE TABLE " + email + " ("
-                + "id INT AUTO_INCREMENT PRIMARY KEY, "
+        String tableName = email.replaceAll("[^a-zA-Z0-9]", "_");
+        String createTableSql = "CREATE TABLE `" + tableName + "` ("
+                + "`id` INT AUTO_INCREMENT PRIMARY KEY, "
                 + "`Application Number` VARCHAR(255), "
-                + "status VARCHAR(255), "
+                + "`status` VARCHAR(255), "
                 + "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
                 + ")";
         jdbcTemplate.execute(createTableSql);
