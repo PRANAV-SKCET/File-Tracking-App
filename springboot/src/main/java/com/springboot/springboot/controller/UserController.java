@@ -232,6 +232,24 @@ public class UserController {
                                 LocalDate.now().toString(),
                                 "");
         }
+        insertFirstStepIntoEmployeeTable(steps.get(0),applicationNumber);
+    }
+    public void insertFirstStepIntoEmployeeTable(Map<String, Object> firstStep,String applicationNumber) {
+        
+        Integer employeeId = (Integer) firstStep.get("employee_id");        
+        EmployeeUsers employee = employeeUsersRepo.findById(employeeId).orElse(null);
+        String employeeEmail = employee.getEmail();
+        String tableName = employeeEmail.replaceAll("[^a-zA-Z0-9]", "_");
+
+        String sql = "INSERT INTO `" + tableName + "` "
+                   + "(`Appliction Number`, status, created_at) "
+                   + "VALUES (?, ?, ?)";
+
+        jdbcTemplate.update(sql,
+                            applicationNumber,
+                            "Pending",
+                            LocalDate.now().toString()
+                            );
     }
 
     public List<Map<String, Object>> getApplicationSteps(int applicationId) {
