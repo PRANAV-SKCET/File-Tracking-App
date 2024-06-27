@@ -127,7 +127,7 @@ public class UserController {
         String tableName = email.replaceAll("[^a-zA-Z0-9]", "_");
         String createTableSql = "CREATE TABLE `" + tableName + "` ("
                 + "`id` INT AUTO_INCREMENT PRIMARY KEY, "
-                + "`Application Number` VARCHAR(255), "
+                + "ApplicationNumber VARCHAR(255), "
                 + "`status` VARCHAR(255), "
                 + "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
                 + ")";
@@ -242,7 +242,7 @@ public class UserController {
         String tableName = employeeEmail.replaceAll("[^a-zA-Z0-9]", "_");
 
         String sql = "INSERT INTO `" + tableName + "` "
-                   + "(`Application Number`, status, created_at) "
+                   + "(ApplicationNumber, status, created_at) "
                    + "VALUES (?, ?, ?)";
 
         jdbcTemplate.update(sql,
@@ -267,6 +267,20 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to track application");
             
+        }
+    }
+
+    @GetMapping("/pending/{employeeMail}")
+    public ResponseEntity<?> getPendingApplications(@PathVariable String employeeMail) {
+        try {
+            String employeeEmail = employeeMail.replaceAll("[^a-zA-Z0-9]", "_");
+            String sql = "SELECT * FROM " + employeeEmail + " WHERE status = 'Pending'";
+            List<Map<String, Object>> results = jdbcTemplate.queryForList(sql);
+            return ResponseEntity.ok(results);
+        }
+        catch(Exception e)
+        {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to load!!!");
         }
     }
 }

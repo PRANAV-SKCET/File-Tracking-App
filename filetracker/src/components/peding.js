@@ -11,8 +11,9 @@ export default function Pending() {
     useEffect(() => {
         const fetchPendingTasks = async () => {
             try {
-                const response = await axios.get(`/pending/${employeeMail}`);
+                const response = await axios.get(`http://localhost:8080/pending/${employeeMail}`);
                 setTasks(response.data);
+                console.log(response.data);
                 setLoading(false);
             } catch (err) {
                 setError(err);
@@ -36,7 +37,7 @@ export default function Pending() {
             <h1>Pending Tasks</h1>
             <ul>
                 {tasks.map(task => (
-                    <li key={task.id}>{task.name}</li>
+                    <li key={task.id}>{task.ApplicationNumber} {task.status} {task.created_at}</li>
                 ))}
             </ul>
         </div>

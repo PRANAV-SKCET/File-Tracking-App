@@ -1,0 +1,56 @@
+/* EmployeeWorking.css */
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.task-info {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    flex: 1; /* Ensures the task info takes up available space */
+}
+
+.task-number, .task-status, .task-date {
+    margin-right: 10px;
+    font-size: 18px; /* Adjust the font size */
+    color: white; /* Adjust the text color */
+}
+
+input[type="text"] {
+    margin-left: 10px;
+    padding: 5px;
+    width: 250px; /* Adjust the width as needed */
+    font-size: 14px; /* Change the font size */
+    color: #333; /* Change the text color */
+    flex-shrink: 0; /* Prevent the text field from shrinking */
+}
+
+button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px; /* Change the font size */
+    flex-shrink: 0; /* Prevent the buttons from shrinking */
+}
+
+button:first-of-type {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+}
+
+button:last-of-type {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 3px;
+}
