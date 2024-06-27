@@ -4,26 +4,20 @@ import axios from 'axios';
 import '../officePage.css';
 import { AuthContext } from './context';
 import Navbar from './navbar';
-
 export default function OfficePage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
     const { setIsOfficeLoggedIn,setOfficeId,setDistrictId,isOfficeLoggedIn} = useContext(AuthContext);
-
-
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     };
-
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             const response = await axios.get(`http://localhost:8080/OfficeLogin/${email}/${password}`);
             if (response.data === true) 
@@ -51,8 +45,8 @@ export default function OfficePage() {
     return (
         <div>
             {!isOfficeLoggedIn &&<Navbar/>}
-        <div className="admin-container">
-            <h1 className="admin-title">Office Login</h1>
+        <div className="office-container">
+            <h1 className="office-title">Office Login</h1>
             <form onSubmit={handleSubmit}>
                 <label className="form-label">
                     Email:
