@@ -9,6 +9,7 @@ export default function EmployeeWorking() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [comments, setComments] = useState({});
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchPendingTasks = async () => {
@@ -40,6 +41,14 @@ export default function EmployeeWorking() {
         console.log(`Reject task ${taskId} with comment: ${comments[taskId]}`);
     };
 
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredTasks = tasks.filter(task =>
+        task.ApplicationNumber.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -50,9 +59,16 @@ export default function EmployeeWorking() {
 
     return (
         <div>
-            <h1>Pending Tasks</h1>
+            <h1>Your Tasks</h1>
+            <input
+                type="text"
+                placeholder="Search by Application Number"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className="search-box"
+            />
             <ul>
-                {tasks.map(task => (
+                {filteredTasks.map(task => (
                     <li key={task.id}>
                         <div className="task-info">
                             <span className="task-number">{task.ApplicationNumber}</span>
