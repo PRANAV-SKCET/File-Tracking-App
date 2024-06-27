@@ -1,9 +1,35 @@
+
+
+body {
+    background-image: url('https://img.freepik.com/free-vector/gradient-connection-background_23-2150518074.jpg?size=626&ext=jpg&ga=GA1.1.2116175301.1717891200&semt=ais_user');
+    background-size: cover; /* Adjust the size of the background image */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    height: 100vh; /* Set the height to 100% of the viewport height */
+    display: flex; /* Enable flexbox */
+    flex-direction: column; /* Arrange children in a column */
+}
+
+.admin-page-container {
+    flex: 1; /* Allow this container to grow and take available space */
+    display: flex; /* Enable flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin-top: 50px;
+     /* Add some space at the top */
+}
+
 .admin-container {
-    max-width: 400px;
+    max-width: 500px;
     margin: auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin-top: 50px;
+    background-color: rgba(255, 255, 255, 0.8); /* Add a background color with some transparency */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow for better appearance */
 }
 
 .admin-title {
@@ -37,4 +63,17 @@
 
 .submit-button:hover {
     background-color: #0056b3;
+}
+
+.response-message {
+    text-align: center;
+    margin-top: 15px;
+    color: red;
+}
+
+.navbar {
+    margin-bottom: 20px;
+    background-color:blueviolet;
+    font-style: italic;
+     /* Add some space below the navbar */
 }
