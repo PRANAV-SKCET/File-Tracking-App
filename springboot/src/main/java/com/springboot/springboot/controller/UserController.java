@@ -242,7 +242,7 @@ public class UserController {
         String tableName = employeeEmail.replaceAll("[^a-zA-Z0-9]", "_");
 
         String sql = "INSERT INTO `" + tableName + "` "
-                   + "(`Appliction Number`, status, created_at) "
+                   + "(`Application Number`, status, created_at) "
                    + "VALUES (?, ?, ?)";
 
         jdbcTemplate.update(sql,
