@@ -1,16 +1,58 @@
+/* .admin-navbar {
+    background-color:blueviolet; 
+    color: #fff;
+    padding: 10px;
+    font-style: italic;
+}
+
+.admin-navbar ul {
+    list-style-type: none; 
+    padding: 0;
+}
+
+.admin-navbar ul li {
+    display: inline; 
+    margin-right: 20px; 
+}
+
+.admin-navbar ul li:last-child {
+    margin-right: 0; 
+}
+
+.admin-navbar a {
+    color: #fff;
+    text-decoration: none; 
+}
+
+.admin-navbar button {
+    background-color:red; 
+    color: #fff; 
+    border: none; 
+    padding: 8px 16px; 
+    cursor: pointer; 
+}
+
+.admin-navbar button:hover {
+    background-color: #0056b3; 
+} */
 .admin-navbar {
-    background-color: #333; /* Dark background color */
+    background-color:blueviolet; /* Dark background color */
     color: #fff; /* Text color */
-    padding: 10px; /* Padding around navbar */
+    padding: 10px;
+    font-style:italic;
+    font-weight: bold;
+     /* Padding around navbar */
 }
 
 .admin-navbar ul {
     list-style-type: none; /* Remove default list styling */
     padding: 0;
+    margin: 0; /* Remove default margin */
+    display: flex; /* Use flexbox for horizontal alignment */
+    align-items: center; /* Center items vertically */
 }
 
 .admin-navbar ul li {
-    display: inline; /* Display list items horizontally */
     margin-right: 20px; /* Add space between list items */
 }
 
@@ -24,13 +66,15 @@
 }
 
 .admin-navbar button {
-    background-color: #007bff; /* Button background color */
+    background-color:crimson; /* Button background color */
     color: #fff; /* Button text color */
     border: none; /* Remove button border */
     padding: 8px 16px; /* Padding inside the button */
     cursor: pointer; /* Show pointer cursor on hover */
+    margin-left: auto; /* Push the button to the right */
 }
 
+/* Remove hover effect for the logout button */
 .admin-navbar button:hover {
-    background-color: #0056b3; /* Darken button color on hover */
+    background-color: red; /* Keep the background color the same */
 }
