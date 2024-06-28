@@ -16,7 +16,6 @@ export default function EmployeeWorking() {
             try {
                 const response = await axios.get(`http://localhost:8080/pending/${employeeMail}`);
                 setTasks(response.data);
-                console.log(response.data);
                 setLoading(false);
             } catch (err) {
                 setError(err);
@@ -31,14 +30,23 @@ export default function EmployeeWorking() {
         setComments({ ...comments, [taskId]: comment });
     };
 
-    const handleComplete = (taskId) => {
-        // Add your complete task logic here
-        console.log(`Complete task ${taskId} with comment: ${comments[taskId]}`);
+    const handleComplete = async (taskId,ApplicationNumber) => {
+        const comment = comments[taskId] || '';
+        try {
+            const response = await axios.post(`http://localhost:8080/complete/${ApplicationNumber}/${comment}/${employeeMail}`);
+            console.log(response.data);
+        } catch (err) {
+            console.error(`Failed to complete task ${taskId}:`, err);
+        }
     };
 
-    const handleReject = (taskId) => {
-        // Add your reject task logic here
-        console.log(`Reject task ${taskId} with comment: ${comments[taskId]}`);
+    const handleReject = async (taskId,ApplicationNumber) => {
+        const comment = comments[taskId] || '';
+        try {
+            await axios.post(`http://localhost:8080/reject/${ApplicationNumber}/${comment}/${employeeMail}`);
+        } catch (err) {
+            console.error(`Failed to reject task ${taskId}:`, err);
+        }
     };
 
     const handleSearchChange = (event) => {
@@ -81,8 +89,8 @@ export default function EmployeeWorking() {
                             value={comments[task.id] || ''}
                             onChange={(e) => handleCommentChange(task.id, e.target.value)}
                         />
-                        <button onClick={() => handleComplete(task.id)}>Complete</button>
-                        <button onClick={() => handleReject(task.id)}>Reject</button>
+                        <button onClick={() => handleComplete(task.id,task.ApplicationNumber)}>Complete</button>
+                        <button onClick={() => handleReject(task.id,task.ApplicationNumber)}>Reject</button>
                     </li>
                 ))}
             </ul>

@@ -21,7 +21,7 @@ li {
 .task-number, .task-status, .task-date {
     margin-right: 10px;
     font-size: 18px; /* Adjust the font size */
-    color: white; /* Adjust the text color */
+    color:black; /* Adjust the text color */
 }
 
 input[type="text"] {

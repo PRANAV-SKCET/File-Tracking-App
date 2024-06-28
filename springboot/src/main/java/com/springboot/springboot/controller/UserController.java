@@ -283,4 +283,18 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to load!!!");
         }
     }
+
+    @PostMapping("/complete/{ApplicationNumber}/{comment}/{employeeMail}")
+    public String completeApplication (@PathVariable String ApplicationNumber,@PathVariable String comment,@PathVariable String employeeMail)
+    {
+        String employeeEmail = employeeMail.replaceAll("[^a-zA-Z0-9]", "_");
+        String sql = "DELETE FROM ? WHERE ApplicationNumber = ?" ;
+        // jdbcTemplate.update(sql, employeeEmail, ApplicationNumber);
+
+        List<EmployeeUsers> employee = employeeUsersRepo.checkExist(employeeMail);
+        int employeeId = employee.get(0).getEmployeeId();
+        String sql1 = "UPDATE TABLE  ? SET status = 'Completed' WHERE Employee_Id = ?";
+        jdbcTemplate.update(sql1,ApplicationNumber,employeeId);
+        return "Done";
+    }
 }
