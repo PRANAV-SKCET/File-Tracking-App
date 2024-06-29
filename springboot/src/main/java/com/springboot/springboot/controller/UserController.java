@@ -295,6 +295,27 @@ public class UserController {
         int employeeId = employee.get(0).getEmployeeId();
         String sql1 = "UPDATE "+ ApplicationNumber +" SET status = 'Completed' WHERE Employee_Id = ?";
         jdbcTemplate.update(sql1,employeeId);
+
+        String nextTaskSql = "SELECT * FROM " + ApplicationNumber + " WHERE status ='Pending' LIMIT 1";
+            List<Map<String, Object>> nextTasks = jdbcTemplate.queryForList(nextTaskSql);
+
+            if (!nextTasks.isEmpty()) {
+                Map<String, Object> nextTask = nextTasks.get(0);
+                int nextTaskId = (int) nextTask.get("Employee_Id"); // Adjust column name if necessary
+
+                EmployeeUsers employee2 = employeeUsersRepo.findById(nextTaskId).orElse(null);
+                String employeemail2 = employee2.getEmail();
+                String tableName = employeemail2.replaceAll("[^a-zA-Z0-9]", "_");
+                String sql3 = "INSERT INTO `" + tableName + "` "
+                + "(ApplicationNumber, status, created_at) "
+                + "VALUES (?, ?, ?)";
+
+     jdbcTemplate.update(sql3,
+                         ApplicationNumber,
+                         "Pending",
+                         LocalDate.now().toString()
+                         );
+            }
         return "Done";
     }
 }
