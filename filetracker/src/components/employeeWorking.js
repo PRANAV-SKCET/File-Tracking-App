@@ -24,7 +24,7 @@ export default function EmployeeWorking() {
         };
 
         fetchPendingTasks();
-    }, [employeeMail]);
+    }, []);
 
     const handleCommentChange = (taskId, comment) => {
         setComments({ ...comments, [taskId]: comment });
