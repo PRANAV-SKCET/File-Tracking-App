@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -285,7 +286,7 @@ public class UserController {
     }
 
     @PostMapping("/complete/{ApplicationNumber}/{comment}/{employeeMail}")
-    public String completeApplication (@PathVariable String ApplicationNumber,@PathVariable String comment,@PathVariable String employeeMail)
+    public void completeApplication (@PathVariable String ApplicationNumber,@PathVariable String comment,@PathVariable String employeeMail)
     {
         String employeeEmail = employeeMail.replaceAll("[^a-zA-Z0-9]", "_");
         String sql = "DELETE FROM " + employeeEmail + " WHERE ApplicationNumber = ?";
@@ -296,26 +297,28 @@ public class UserController {
         String sql1 = "UPDATE "+ ApplicationNumber +" SET status = 'Completed' WHERE Employee_Id = ?";
         jdbcTemplate.update(sql1,employeeId);
 
-        String nextTaskSql = "SELECT * FROM " + ApplicationNumber + " WHERE status ='Pending' LIMIT 1";
-            List<Map<String, Object>> nextTasks = jdbcTemplate.queryForList(nextTaskSql);
-
-            if (!nextTasks.isEmpty()) {
+        String nextTaskSql = "SELECT Employee_Id FROM " + ApplicationNumber + " WHERE status=?";
+            List<Map<String, Object>> nextTasks = jdbcTemplate.queryForList(nextTaskSql,"Pending");
+            if (nextTasks.size()>0) {
                 Map<String, Object> nextTask = nextTasks.get(0);
-                int nextTaskId = (int) nextTask.get("Employee_Id"); // Adjust column name if necessary
-
+                String employeeIdStr = (String) nextTask.get("Employee_Id");
+                int nextTaskId = Integer.parseInt(employeeIdStr);
                 EmployeeUsers employee2 = employeeUsersRepo.findById(nextTaskId).orElse(null);
                 String employeemail2 = employee2.getEmail();
                 String tableName = employeemail2.replaceAll("[^a-zA-Z0-9]", "_");
                 String sql3 = "INSERT INTO `" + tableName + "` "
                 + "(ApplicationNumber, status, created_at) "
                 + "VALUES (?, ?, ?)";
-
-     jdbcTemplate.update(sql3,
-                         ApplicationNumber,
-                         "Pending",
-                         LocalDate.now().toString()
-                         );
+                
+                jdbcTemplate.update(sql3,
+                ApplicationNumber,
+                "Pending",
+                LocalDate.now().toString()
+                );
             }
-        return "Done";
+            else
+            {
+                applicationsRepo.edit(ApplicationNumber,LocalDate.now().toString());
+            }
     }
 }

@@ -11,17 +11,17 @@ export default function EmployeeWorking() {
     const [comments, setComments] = useState({});
     const [searchTerm, setSearchTerm] = useState('');
 
+    const fetchPendingTasks = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/pending/${employeeMail}`);
+            setTasks(response.data);
+            setLoading(false);
+        } catch (err) {
+            setError(err);
+            setLoading(false);
+        }
+    };
     useEffect(() => {
-        const fetchPendingTasks = async () => {
-            try {
-                const response = await axios.get(`http://localhost:8080/pending/${employeeMail}`);
-                setTasks(response.data);
-                setLoading(false);
-            } catch (err) {
-                setError(err);
-                setLoading(false);
-            }
-        };
 
         fetchPendingTasks();
     }, []);
@@ -35,6 +35,7 @@ export default function EmployeeWorking() {
         try {
             const response = await axios.post(`http://localhost:8080/complete/${ApplicationNumber}/${comment}/${employeeMail}`);
             console.log(response.data);
+            fetchPendingTasks();
         } catch (err) {
             console.error(`Failed to complete task ${taskId}:`, err);
         }
