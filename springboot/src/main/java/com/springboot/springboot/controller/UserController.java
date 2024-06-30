@@ -294,8 +294,8 @@ public class UserController {
 
         List<EmployeeUsers> employee = employeeUsersRepo.checkExist(employeeMail);
         int employeeId = employee.get(0).getEmployeeId();
-        String sql1 = "UPDATE "+ ApplicationNumber +" SET status = 'Completed' WHERE Employee_Id = ?";
-        jdbcTemplate.update(sql1,employeeId);
+        String sql1 = "UPDATE "+ ApplicationNumber +" SET status = 'Completed' , Comments = ? WHERE Employee_Id = ?";
+        jdbcTemplate.update(sql1,comment,employeeId);
 
         String nextTaskSql = "SELECT Employee_Id FROM " + ApplicationNumber + " WHERE status=?";
             List<Map<String, Object>> nextTasks = jdbcTemplate.queryForList(nextTaskSql,"Pending");

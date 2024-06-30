@@ -52,7 +52,7 @@ export default function Monitoring() {
                             <p>Status: {info.status}</p>
                             <p>Assigned To: {info.Assigned_To}</p>
                             <p>Date: {info.Date}</p>
-                            <p>Comments: {info.comments}</p>
+                            <p>Comments: {info.Comments}</p>
                             <hr />
                         </div>
                     ))}
