@@ -31,7 +31,7 @@ export default function EmployeeWorking() {
     };
 
     const handleComplete = async (taskId,ApplicationNumber) => {
-        const comment = comments[taskId] || '';
+        const comment = comments[taskId] || '-';
         try {
             const response = await axios.post(`http://localhost:8080/complete/${ApplicationNumber}/${comment}/${employeeMail}`);
             console.log(response.data);
@@ -42,7 +42,7 @@ export default function EmployeeWorking() {
     };
 
     const handleReject = async (taskId,ApplicationNumber) => {
-        const comment = comments[taskId] || '';
+        const comment = comments[taskId] || '-';
         try {
             await axios.post(`http://localhost:8080/reject/${ApplicationNumber}/${comment}/${employeeMail}`);
         } catch (err) {
