@@ -17,7 +17,7 @@ export default function EmployeeNavbar() {
         <nav className="admin-navbar">
             <ul>
                 <li><Link to="/employeeWorking">Home</Link></li>
-                <li><Link to="/pending">Pending applications</Link></li>
+                <li><Link to="/pending">Delayed applications</Link></li>
                 <li><Link to="/officeabout">About Us</Link></li>
                 <li><Link to="/officeGO">G.O</Link></li>
             </ul>

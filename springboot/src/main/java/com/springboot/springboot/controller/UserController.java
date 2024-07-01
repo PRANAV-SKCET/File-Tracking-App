@@ -334,4 +334,18 @@ public class UserController {
                 applicationsRepo.edit(ApplicationNumber,LocalDate.now().toString());
             }
     }
+
+    @GetMapping("/delayed/{employeeMail}")
+    public ResponseEntity<?> getDelayedApplications(@PathVariable String employeeMail) {
+        try {
+            String employeeEmail = employeeMail.replaceAll("[^a-zA-Z0-9]", "_");
+            String sql = "SELECT * FROM " + employeeEmail + " WHERE status = 'Pending' AND DATE_ADD(created_at, INTERVAL NoOfDays DAY) < NOW()";
+            List<Map<String, Object>> results = jdbcTemplate.queryForList(sql);
+            return ResponseEntity.ok(results);
+        }
+        catch(Exception e)
+        {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to load!!!");
+        }
+    }
 }
