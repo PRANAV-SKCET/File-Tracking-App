@@ -9,6 +9,15 @@ import { AuthContext } from './context';
 export default function AddApplication() {
     const { officeId } = useContext(AuthContext);
 
+    const formatDate = (date) => {
+        const d = new Date(date);
+        const day = String(d.getDate()).padStart(2, '0');
+        const month = String(d.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+        const year = d.getFullYear();
+        return `${day}-${month}-${year}`;
+    };
+
+    
     const [applicationData, setApplicationData] = useState({
         applicationNumber: '',
         applicantName: '',
@@ -17,8 +26,8 @@ export default function AddApplication() {
         applicantAddress: '',
         applicationTypeId: '',
         applicationName: '',
-        applicationStatus: '',
-        applicationDate: '',
+        applicationStatus: 'opened',
+        applicationDate: formatDate(new Date()),
         applicationClosedDate: ''
     });
 
@@ -162,33 +171,7 @@ export default function AddApplication() {
                     fullWidth
                     margin="normal"
                 />
-                <TextField
-                    label="Application Status"
-                    variant="outlined"
-                    name="applicationStatus"
-                    value={applicationData.applicationStatus}
-                    onChange={handleChange}
-                    fullWidth
-                    margin="normal"
-                />
-                <TextField
-                    label="Application Date"
-                    variant="outlined"
-                    name="applicationDate"
-                    value={applicationData.applicationDate}
-                    onChange={handleChange}
-                    fullWidth
-                    margin="normal"
-                />
-                <TextField
-                    label="Application Closed Date"
-                    variant="outlined"
-                    name="applicationClosedDate"
-                    value={applicationData.applicationClosedDate}
-                    onChange={handleChange}
-                    fullWidth
-                    margin="normal"
-                />                <Button type="submit" variant="contained" color="primary">
+               <Button type="submit" variant="contained" color="primary">
                     Submit
                 </Button>
             </form>

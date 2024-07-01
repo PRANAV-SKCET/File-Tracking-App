@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -130,7 +129,8 @@ public class UserController {
                 + "`id` INT AUTO_INCREMENT PRIMARY KEY, "
                 + "ApplicationNumber VARCHAR(255), "
                 + "`status` VARCHAR(255), "
-                + "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+                + "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "
+                + "NoOfDays INT"
                 + ")";
         jdbcTemplate.execute(createTableSql);
     }
@@ -220,6 +220,7 @@ public class UserController {
                                 "`Employee_Id` VARCHAR(255), " +
                                 "`status` ENUM('Pending', 'Processing', 'Completed'), " +
                                 "`Date` VARCHAR(255), " +
+                                "`NoOfDays` INT, " +
                                 "`Comments` VARCHAR(255))";
     
         jdbcTemplate.execute(createTableSql);
@@ -229,14 +230,15 @@ public class UserController {
 
         for (Map<String, Object> step : steps) {
             String sql = "INSERT INTO " + applicationNumber + " " +
-                         "(Assigned_To, Employee_Id, status, Date, Comments) " +
-                         "VALUES (?, ?, ?, ?, ?)";
+                         "(Assigned_To, Employee_Id, status, Date, NoOfDays, Comments) " +
+                         "VALUES (?, ?, ?, ?, ?, ?)";
 
             jdbcTemplate.update(sql,
                                 step.get("employee_name"),
                                 step.get("employee_id"),
                                 "Pending",
                                 LocalDate.now().toString(),
+                                step.get("no_of_days"),
                                 "");
         }
         insertFirstStepIntoEmployeeTable(steps.get(0),applicationNumber);
@@ -249,18 +251,18 @@ public class UserController {
         String tableName = employeeEmail.replaceAll("[^a-zA-Z0-9]", "_");
 
         String sql = "INSERT INTO `" + tableName + "` "
-                   + "(ApplicationNumber, status, created_at) "
-                   + "VALUES (?, ?, ?)";
+                   + "(ApplicationNumber, status, created_at,NoOfDays) "
+                   + "VALUES (?, ?, ?, ?)";
 
         jdbcTemplate.update(sql,
                             applicationNumber,
                             "Pending",
-                            LocalDate.now().toString()
-                            );
+                            LocalDate.now().toString(),
+                            firstStep.get("no_of_days"));
     }
 
     public List<Map<String, Object>> getApplicationSteps(int applicationId) {
-        String sql = "SELECT employee_name, employee_id " +
+        String sql = "SELECT employee_name, employee_id, no_of_days " +
                      "FROM application_steps WHERE application_id = ?";
         return jdbcTemplate.queryForList(sql, applicationId);
     }
@@ -303,7 +305,7 @@ public class UserController {
         String sql1 = "UPDATE "+ ApplicationNumber +" SET status = 'Completed' , Comments = ? WHERE Employee_Id = ?";
         jdbcTemplate.update(sql1,comment,employeeId);
 
-        String nextTaskSql = "SELECT Employee_Id FROM " + ApplicationNumber + " WHERE status=?";
+        String nextTaskSql = "SELECT Employee_Id, NoOfDays FROM " + ApplicationNumber + " WHERE status=?";
             List<Map<String, Object>> nextTasks = jdbcTemplate.queryForList(nextTaskSql,"Pending");
             if (nextTasks.size()>0) {
                 Map<String, Object> nextTask = nextTasks.get(0);
@@ -313,14 +315,19 @@ public class UserController {
                 String employeemail2 = employee2.getEmail();
                 String tableName = employeemail2.replaceAll("[^a-zA-Z0-9]", "_");
                 String sql3 = "INSERT INTO `" + tableName + "` "
-                + "(ApplicationNumber, status, created_at) "
-                + "VALUES (?, ?, ?)";
+                + "(ApplicationNumber, status, created_at,NoOfDays) "
+                + "VALUES (?, ?, ?, ?)";
                 
                 jdbcTemplate.update(sql3,
                 ApplicationNumber,
                 "Pending",
-                LocalDate.now().toString()
+                LocalDate.now().toString(),
+                nextTask.get("NoOfDays")
                 );
+
+                String updatingSQL = "UPDATE " + ApplicationNumber + " SET Date = ? WHERE Step_No = ?";
+                jdbcTemplate.update(updatingSQL,LocalDate.now().toString(),nextTask.get("Step_No"));
+
             }
             else
             {
