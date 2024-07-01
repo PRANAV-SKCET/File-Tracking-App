@@ -156,7 +156,13 @@ public class UserController {
             return "Employee Not Found";
         }
         employeeUsersRepo.delete(employeeUsers);
+        deleteEmployeeTable(employeeUsers.getEmail());
         return "Employee Deleted";
+    }
+    private void deleteEmployeeTable(String email) {
+        String tableName = email.replaceAll("[^a-zA-Z0-9]", "_");
+        String dropTableSql = "DROP TABLE IF EXISTS `" + tableName + "`";
+        jdbcTemplate.execute(dropTableSql);
     }
 
     @PostMapping("/saveApplicationType")
