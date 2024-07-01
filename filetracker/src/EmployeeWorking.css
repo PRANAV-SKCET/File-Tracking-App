@@ -95,3 +95,13 @@ h1 {
 .reject-button:hover {
     background-color: #e53935;
 }
+
+.warning {
+    background-color: #ffeb3b;
+    color: #333;
+    padding: 10px;
+    border: 1px solid #ffd700;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: center;
+}

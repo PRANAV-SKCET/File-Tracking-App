@@ -335,6 +335,12 @@ public class UserController {
             }
     }
 
+    @PostMapping("/reject/{ApplicationNumber}/{comment}/{employeeMail}")
+    public void rejectApplication(@PathVariable String ApplicationNumber,@PathVariable String comment,@PathVariable String employeeMail)
+    {
+        
+    }
+
     @GetMapping("/delayed/{employeeMail}")
     public ResponseEntity<?> getDelayedApplications(@PathVariable String employeeMail) {
         try {
@@ -342,6 +348,21 @@ public class UserController {
             String sql = "SELECT * FROM " + employeeEmail + " WHERE status = 'Pending' AND DATE_ADD(created_at, INTERVAL NoOfDays DAY) < NOW()";
             List<Map<String, Object>> results = jdbcTemplate.queryForList(sql);
             return ResponseEntity.ok(results);
+        }
+        catch(Exception e)
+        {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to load!!!");
+        }
+    }
+
+    @GetMapping("/delayed/count/{employeeMail}")
+    public ResponseEntity<?> getDelayedCountApplications(@PathVariable String employeeMail) {
+        try {
+            String employeeEmail = employeeMail.replaceAll("[^a-zA-Z0-9]", "_");
+            String sql = "SELECT COUNT(*) AS delayedCount FROM " + employeeEmail + " WHERE status = 'Pending' AND DATE_ADD(created_at, INTERVAL NoOfDays DAY) < NOW()";
+            Map<String, Object> result = jdbcTemplate.queryForMap(sql);
+            int delayedCount = ((Number) result.get("delayedCount")).intValue();
+            return ResponseEntity.ok(delayedCount);            
         }
         catch(Exception e)
         {

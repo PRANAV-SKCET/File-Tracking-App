@@ -10,6 +10,8 @@ export default function EmployeeWorking() {
     const [error, setError] = useState(null);
     const [comments, setComments] = useState({});
     const [searchTerm, setSearchTerm] = useState('');
+    const [delayedCount, setDelayedCount] = useState(0);
+    const [showWarning, setShowWarning] = useState(false);
 
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -27,8 +29,19 @@ export default function EmployeeWorking() {
         }
     };
 
+    const fetchDelayedCount = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/delayed/count/${employeeMail}`);
+            setDelayedCount(response.data);
+            setShowWarning(true);
+        } catch (err) {
+            console.error('Failed to fetch delayed count:', err);
+        }
+    };
+
     useEffect(() => {
         fetchPendingTasks();
+        fetchDelayedCount();
     }, []);
 
     const handleCommentChange = (taskId, comment) => {
@@ -38,9 +51,9 @@ export default function EmployeeWorking() {
     const handleComplete = async (taskId, ApplicationNumber) => {
         const comment = comments[taskId] || '-';
         try {
-            const response = await axios.post(`http://localhost:8080/complete/${ApplicationNumber}/${comment}/${employeeMail}`);
-            console.log(response.data);
+            await axios.post(`http://localhost:8080/complete/${ApplicationNumber}/${comment}/${employeeMail}`);
             fetchPendingTasks();
+            fetchDelayedCount();
         } catch (err) {
             console.error(`Failed to complete task ${taskId}:`, err);
         }
@@ -50,6 +63,8 @@ export default function EmployeeWorking() {
         const comment = comments[taskId] || '-';
         try {
             await axios.post(`http://localhost:8080/reject/${ApplicationNumber}/${comment}/${employeeMail}`);
+            fetchPendingTasks();
+            fetchDelayedCount();
         } catch (err) {
             console.error(`Failed to reject task ${taskId}:`, err);
         }
@@ -74,6 +89,11 @@ export default function EmployeeWorking() {
     return (
         <div className="employee-working-container">
             <h1>Your Tasks</h1>
+            {showWarning && delayedCount > 0 && (
+                <div className="warning">
+                    You have {delayedCount} delayed application(s).
+                </div>
+            )}
             <input
                 type="text"
                 placeholder="Search by Application Number"
