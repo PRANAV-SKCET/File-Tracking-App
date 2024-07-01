@@ -27,6 +27,7 @@ import com.springboot.springboot.repository.ApplicationTypeRepo;
 import com.springboot.springboot.repository.ApplicationsRepo;
 import com.springboot.springboot.repository.EmployeeUsersRepo;
 import com.springboot.springboot.repository.OfficeUsersRepo;
+import com.springboot.springboot.repository.RejectedRepo;
 
 @RestController
 public class UserController {
@@ -51,6 +52,9 @@ public class UserController {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private RejectedRepo rejectedRepo;
 
     @GetMapping("/AdminLogin/{email}/{password}")
     public Boolean AdminLogin(@PathVariable String email, @PathVariable String password)
@@ -338,6 +342,15 @@ public class UserController {
     @PostMapping("/reject/{ApplicationNumber}/{comment}/{employeeMail}")
     public void rejectApplication(@PathVariable String ApplicationNumber,@PathVariable String comment,@PathVariable String employeeMail)
     {
+        String employeeEmail = employeeMail.replaceAll("[^a-zA-Z0-9]", "_");
+        String sql = "DELETE FROM " + employeeEmail + " WHERE ApplicationNumber = ?";
+        jdbcTemplate.update(sql,ApplicationNumber);
+
+        List<EmployeeUsers> employee = employeeUsersRepo.checkExist(employeeMail);
+        int employeeId = employee.get(0).getEmployeeId();
+        String sql1 = "UPDATE "+ ApplicationNumber +" SET status = 'Rejected' , Comments = ? WHERE Employee_Id = ?";
+        jdbcTemplate.update(sql1,comment,employeeId);
+
         
     }
 
