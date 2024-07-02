@@ -7,14 +7,13 @@ import Navbar from './navbar';
 import DomainIcon from '@mui/icons-material/Domain';
 
 export default function OfficePage() {
-    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    const { setIsOfficeLoggedIn, setOfficeId, setDistrictId, isOfficeLoggedIn } = useContext(AuthContext);
+    const { setIsOfficeLoggedIn, setOfficeId, setDistrictId, isOfficeLoggedIn, officeMail, setOfficeMail } = useContext(AuthContext);
 
     const handleEmailChange = (e) => {
-        setEmail(e.target.value);
+        setOfficeMail(e.target.value);
     };
 
     const handlePasswordChange = (e) => {
@@ -24,9 +23,9 @@ export default function OfficePage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.get(`http://localhost:8080/OfficeLogin/${email}/${password}`);
+            const response = await axios.get(`http://localhost:8080/OfficeLogin/${officeMail}/${password}`);
             if (response.data === true) {
-                const response2 = await axios.get(`http://localhost:8080/OfficeLoginDetails/${email}/${password}`);
+                const response2 = await axios.get(`http://localhost:8080/OfficeLoginDetails/${officeMail}/${password}`);
                 setOfficeId(response2.data.officeId);
                 setDistrictId(response2.data.districtId);
                 setIsOfficeLoggedIn(true);
@@ -56,7 +55,7 @@ export default function OfficePage() {
                 <form onSubmit={handleSubmit}>
                     <label className="form-label">
                         Email:
-                        <input className="form-input" type="email" value={email} onChange={handleEmailChange} />
+                        <input className="form-input" type="email" value={officeMail} onChange={handleEmailChange} />
                     </label>
                     <br />
                     <label className="form-label">

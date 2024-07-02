@@ -23,6 +23,7 @@ import AddApplication from './components/addApplication';
 import AddAppType from './components/addAppType';
 import EmployeeNavbar from './components/employeeNavbar';
 import Pending from './components/peding';
+import RejectedApplications from './components/rejectedApplication';
 
 
 function App() {
@@ -33,6 +34,7 @@ const[isOfficeLoggedIn,setIsOfficeLoggedIn] = useState(false);
 const[isEmployeeLoggedIn,setIsEmployeeLoggedIn] = useState(false);
 const[officeId,setOfficeId] = useState('');
 const[employeeMail,setEmployeeMail] = useState('');
+const[officeMail,setOfficeMail] = useState('');
 
   return (
     <AuthContext.Provider
@@ -49,6 +51,8 @@ const[employeeMail,setEmployeeMail] = useState('');
       setIsEmployeeLoggedIn,
       employeeMail,
       setEmployeeMail,
+      officeMail,
+      setOfficeMail
     }}
   >
 
@@ -74,6 +78,7 @@ const[employeeMail,setEmployeeMail] = useState('');
         <Route path="/add-employee" element={<AddEmployee />} />
         <Route path="/delete-employee" element={<DeleteEmployee />} />
         <Route path="/add-application" element={<AddApplication />} />
+        <Route path="/rejected-application" element={<RejectedApplications />} />
         <Route path="/addAppType" element={<AddAppType />} />
         <Route path="/pending" element={<Pending />} />
         </Routes>
