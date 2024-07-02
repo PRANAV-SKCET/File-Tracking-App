@@ -68,7 +68,7 @@ export default function EmployeeWorking() {
             const name = await axios.get(`http://localhost:8080/getName/${ApplicationNumber}`);
             const applicationName = await axios.get(`http://localhost:8080/getApplicationName/${ApplicationNumber}`);
             const designation = await axios.get(`http://localhost:8080/getDesignation/${employeeMail}`);
-            const officeId = await axios.get(`http://localhost:8080/getOfficeId/${employeeMail}`);
+            const officeId = (await axios.get(`http://localhost:8080/getOfficeId/${employeeMail}`)).data;
             const officeName =  await axios.get(`http://localhost:8080/getOfficeName/${officeId}`);
             const mail = await axios.get(`http://localhost:8080/getMail/${ApplicationNumber}`)
 
@@ -76,12 +76,12 @@ export default function EmployeeWorking() {
             fetchDelayedCount();
             const templateParams = {
                 application_number:ApplicationNumber,
-                applicant_name:name,
-                application:applicationName,
-                employee_designation:designation,
+                applicant_name:name.data,
+                application:applicationName.data,
+                employee_designation:designation.data,
                 comments:comment,
-                office_name:officeName,
-                to_email:mail
+                office_name:officeName.data,
+                to_email:mail.data
             };
     
     

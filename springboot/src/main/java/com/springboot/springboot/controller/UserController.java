@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,9 +30,9 @@ import com.springboot.springboot.repository.EmployeeUsersRepo;
 import com.springboot.springboot.repository.OfficeUsersRepo;
 import com.springboot.springboot.repository.RejectedRepo;
 
-import jakarta.persistence.criteria.CriteriaBuilder.In;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     @Autowired
@@ -406,13 +407,13 @@ public class UserController {
     }
 
     @GetMapping("/getOfficeId/{employeeMail}")
-    public int getOfficeId(@PathVariable String employeeMail)
+    public Integer getOfficeId(@PathVariable String employeeMail)
     {
         return employeeUsersRepo.getOfficeId(employeeMail).get(0);
     }
 
     @GetMapping("/getOfficeName/{officeId}")
-    public String getOfficename(@PathVariable int officeId)
+    public String getOfficename(@PathVariable Integer officeId)
     {
         return officeUsersRepo.getOfficeName(officeId).get(0);
     }
