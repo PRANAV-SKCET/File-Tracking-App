@@ -24,7 +24,7 @@ export default function EmployeePage() {
         e.preventDefault();
 
         try {
-            const response = await axios.get("https://w0.peakpx.com/wallpaper/403/852/HD-wallpaper-abstract-purple-purple-and-teal.jpg");
+            const response = await axios.get(`http://localhost:8080/EmployeeLogin/${employeeMail}/${password}`);
             if (response.data === true) {
                 setIsEmployeeLoggedIn(true);
                 setMessage('Login successful');
