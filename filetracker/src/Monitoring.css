@@ -1,18 +1,30 @@
 .monitoring-container {
-    max-width: 400px;
+    width: 100%;
     margin: auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background:blue; /* Keep background color for better visibility */
+    color: white;
+    font:white; /* Set font color to white */
+    margin-top: 30px;
 }
-
 
 .input-field {
     margin-bottom: 20px;
+   
     display: block;
+    color: white; /* Set font color to white for input field text */
 }
 
 .track-button {
     display: block;
     margin-top: 20px;
+    background-color: red;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.track-button:hover {
+    background-color: blue;
 }
