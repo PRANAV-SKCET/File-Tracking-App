@@ -222,7 +222,7 @@ public class UserController {
                                 "`Step_No` INT AUTO_INCREMENT PRIMARY KEY, " +
                                 "`Assigned_To` VARCHAR(255), " +
                                 "`Employee_Id` VARCHAR(255), " +
-                                "`status` ENUM('Pending', 'Processing', 'Completed'), " +
+                                "`status` ENUM('Pending', 'Rejected', 'Completed','Processing'), " +
                                 "`Date` VARCHAR(255), " +
                                 "`NoOfDays` INT, " +
                                 "`Comments` VARCHAR(255))";
@@ -349,9 +349,7 @@ public class UserController {
         List<EmployeeUsers> employee = employeeUsersRepo.checkExist(employeeMail);
         int employeeId = employee.get(0).getEmployeeId();
         String sql1 = "UPDATE "+ ApplicationNumber +" SET status = 'Rejected' , Comments = ? WHERE Employee_Id = ?";
-        jdbcTemplate.update(sql1,comment,employeeId);
-
-        
+        jdbcTemplate.update(sql1,comment,employeeId);  
     }
 
     @GetMapping("/delayed/{employeeMail}")
