@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from './context';
 import '../EmployeeWorking.css';
+import emailjs from 'emailjs-com';
 
 export default function EmployeeWorking() {
     const { employeeMail } = useContext(AuthContext);
@@ -63,8 +64,33 @@ export default function EmployeeWorking() {
         const comment = comments[taskId] || '-';
         try {
             await axios.post(`http://localhost:8080/reject/${ApplicationNumber}/${comment}/${employeeMail}`);
+
+            const name = await axios.get(`http://localhost:8080/getName/${ApplicationNumber}`);
+            const applicationName = await axios.get(`http://localhost:8080/getApplicationName/${ApplicationNumber}`);
+            const designation = await axios.get(`http://localhost:8080/getDesignation/${employeeMail}`);
+            const officeId = await axios.get(`http://localhost:8080/getOfficeId/${employeeMail}`);
+            const officeName =  await axios.get(`http://localhost:8080/getOfficeName/${officeId}`);
+            const mail = await axios.get(`http://localhost:8080/getMail/${ApplicationNumber}`)
+
             fetchPendingTasks();
             fetchDelayedCount();
+            const templateParams = {
+                application_number:ApplicationNumber,
+                applicant_name:name,
+                application:applicationName,
+                employee_designation:designation,
+                comments:comment,
+                office_name:officeName,
+                to_email:mail
+            };
+    
+    
+            emailjs.send("service_2sg82vx", "template_luxl33q", templateParams, "r7-vFKI6iM_8Dyl01")
+                .then((response) => {
+                    console.log('Email successfully sent!', response.status, response.text);
+                }, (err) => {
+                    console.error('Failed to send email:', err);
+                });
         } catch (err) {
             console.error(`Failed to reject task ${taskId}:`, err);
         }
