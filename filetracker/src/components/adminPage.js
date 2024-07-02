@@ -4,6 +4,7 @@ import axios from 'axios';
 import '../adminPage.css';
 import { AuthContext } from './context';
 import Navbar from './navbar';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function AdminPage() {
     const [email, setEmail] = useState('');
@@ -48,7 +49,10 @@ export default function AdminPage() {
             {!isAdminLoggedIn && <Navbar />}
             <div className="admin-page-container">
                 <div className="admin-container">
-                    <h1 className="admin-title">Admin Login</h1>
+                    <h1 className="admin-title">
+                        <AccountCircleIcon style={{ verticalAlign: 'middle', marginRight: '10px', fontSize: '40px' }} />
+                        Admin Login
+                    </h1>
                     <form onSubmit={handleSubmit}>
                         <label className="form-label">
                             Email:
@@ -59,13 +63,12 @@ export default function AdminPage() {
                             Password:
                             <input className="form-input" type="password" value={password} onChange={handlePasswordChange} />
                         </label>
-                        <br />
-                        <button className="submit-button" type="submit">Login</button>
                     </form>
                     {message && (
                         <div className="response-message">{message}</div>
                     )}
                 </div>
+                <button className="submit-button" type="submit" onClick={handleSubmit}>Login</button>
             </div>
         </div>
     );

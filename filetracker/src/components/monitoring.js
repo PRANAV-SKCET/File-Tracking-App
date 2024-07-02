@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import axios from 'axios';
 import '../Monitoring.css';
 import Navbar from './navbar';
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 
 export default function Monitoring() {
     const [applicationNumber, setApplicationNumber] = useState('');
@@ -14,12 +15,9 @@ export default function Monitoring() {
         setApplicationNumber(e.target.value);
     };
 
- 
-
     const handleTrackButtonClick = async () => {
         setTrackingInfo(null);
         setError(null);
-
         await axios.get(`http://localhost:8080/track/${applicationNumber}`)
             .then(response => {
                 setTrackingInfo(response.data);
@@ -29,38 +27,57 @@ export default function Monitoring() {
             });
     };
 
+    const backgroundStyle = {
+        backgroundImage: 'url("https://w0.peakpx.com/wallpaper/403/852/HD-wallpaper-abstract-purple-purple-and-teal.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+    };
+
     return (
         <div>
             <Navbar />
-            <div className="monitoring-container">
-            <h1>Track your Application</h1>
-            <div>
-                <TextField
-                    className="input-field"
-                    label="Application Number"
-                    value={applicationNumber}
-                    onChange={handleApplicationNumberChange}
-                />
-            </div>
-            <Button className="track-button" variant="contained" onClick={handleTrackButtonClick}>Track</Button>
-
-            {trackingInfo && trackingInfo.length > 0 && (
-                <div className="tracking-info">
-                    <h2>Tracking Information</h2>
-                    {trackingInfo.map((info, index) => (
-                        <div key={index} className="tracking-info-item">
-                            <p>Status: {info.status}</p>
-                            <p>Assigned To: {info.Assigned_To}</p>
-                            <p>Date: {info.Date}</p>
-                            <p>Comments: {info.Comments}</p>
-                            <hr />
+            <div style={backgroundStyle}>
+                <div className="monitoring-container card">
+                    <h1>
+                        <AddLocationAltIcon style={{ verticalAlign: 'middle', marginRight: '10px', fontSize: '40px' }} />
+                        Track your Application
+                    </h1>
+                    <div>
+                        <TextField
+                            type="text"
+                            name="application number"
+                            className="input-field"
+                            InputProps={{ className: 'input-field' }}
+                            label="Application Number"
+                            value={applicationNumber}
+                            onChange={handleApplicationNumberChange}
+                            multiline
+                            rows={1} // Adjust the number of rows as needed
+                        />
+                    </div>
+                    {trackingInfo && trackingInfo.length > 0 && (
+                        <div className="tracking-info">
+                            <h2>Tracking Information</h2>
+                            {trackingInfo.map((info, index) => (
+                                <div key={index} className="tracking-info-item">
+                                    <p>Status: {info.status}</p>
+                                    <p>Assigned To: {info.Assigned_To}</p>
+                                    <p>Date: {info.Date}</p>
+                                    <p>Comments: {info.Comments}</p>
+                                    <hr />
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    )}
+                    {error && <div className="error-message">{error}</div>}
                 </div>
-            )}
-
-            {error && <div className="error-message">{error}</div>}
-        </div>
+                <Button className="track-button" variant="contained" onClick={handleTrackButtonClick}>Track</Button>
+            </div>
         </div>
     );
 }
