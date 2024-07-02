@@ -430,4 +430,5 @@ public class UserController {
     {
         return rejectedRepo.getRejectedApplications(officeId);
     }
+
 }
