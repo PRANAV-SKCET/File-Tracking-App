@@ -350,6 +350,10 @@ public class UserController {
         int employeeId = employee.get(0).getEmployeeId();
         String sql1 = "UPDATE "+ ApplicationNumber +" SET status = 'Rejected' , Comments = ? WHERE Employee_Id = ?";
         jdbcTemplate.update(sql1,comment,employeeId);  
+
+
+        String insert = "INSERT into rejected (application_number,comment,date_of_rejection,reason_for_rejection,date_of_opening,employee_id) VALUES(?,?,?,?,?,?)";
+        jdbcTemplate.update(insert,ApplicationNumber,"",LocalDate.now().toString(),comment,"",employeeId);
     }
 
     @GetMapping("/delayed/{employeeMail}")

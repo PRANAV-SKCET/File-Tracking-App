@@ -9,18 +9,18 @@ public class Rejected {
     private String applicationNumber;
     private String reasonForRejection;
     private String dateOfRejection;
-    private String dateOfopening;
-    private int StepNo;
+    private String dateOfOpening;
+    private int employeeId;
     private String comment;
     public Rejected() {
     }
-    public Rejected(String applicationNumber, String reasonForRejection, String dateOfRejection, String dateOfopening,
-            int stepNo, String comment) {
+    public Rejected(String applicationNumber, String reasonForRejection, String dateOfRejection, String dateOfOpening,
+            int employeeId, String comment) {
         this.applicationNumber = applicationNumber;
         this.reasonForRejection = reasonForRejection;
         this.dateOfRejection = dateOfRejection;
-        this.dateOfopening = dateOfopening;
-        StepNo = stepNo;
+        this.dateOfOpening = dateOfOpening;
+        this.employeeId = employeeId;
         this.comment = comment;
     }
     public String getApplicationNumber() {
@@ -41,17 +41,17 @@ public class Rejected {
     public void setDateOfRejection(String dateOfRejection) {
         this.dateOfRejection = dateOfRejection;
     }
-    public String getDateOfopening() {
-        return dateOfopening;
+    public String getdateOfOpening() {
+        return dateOfOpening;
     }
-    public void setDateOfopening(String dateOfopening) {
-        this.dateOfopening = dateOfopening;
+    public void setdateOfOpening(String dateOfOpening) {
+        this.dateOfOpening = dateOfOpening;
     }
-    public int getStepNo() {
-        return StepNo;
+    public int getemployeeId() {
+        return employeeId;
     }
-    public void setStepNo(int stepNo) {
-        StepNo = stepNo;
+    public void setemployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
     public String getComment() {
         return comment;
