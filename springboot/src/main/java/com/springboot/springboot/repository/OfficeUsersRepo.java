@@ -20,4 +20,9 @@ public interface OfficeUsersRepo extends JpaRepository<OfficeUsers,Integer>{
     @Transactional
     @Query(value = "SELECT * from office_users where email=?1 ", nativeQuery = true)
     public List<OfficeUsers> checkExist(String email);
+
+    @Modifying
+    @Transactional
+    @Query(value = "SELECT office_name from office_users where office_id=?1 ", nativeQuery = true)
+    public List<String> getOfficeName(Integer id);
 }
