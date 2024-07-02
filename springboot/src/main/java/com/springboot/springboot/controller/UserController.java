@@ -22,6 +22,7 @@ import com.springboot.springboot.entity.ApplicationType;
 import com.springboot.springboot.entity.Applications;
 import com.springboot.springboot.entity.EmployeeUsers;
 import com.springboot.springboot.entity.OfficeUsers;
+import com.springboot.springboot.entity.Rejected;
 import com.springboot.springboot.repository.AdminUsersRepo;
 import com.springboot.springboot.repository.ApplicationStepsRepo;
 import com.springboot.springboot.repository.ApplicationTypeRepo;
@@ -422,5 +423,11 @@ public class UserController {
     public String getMail(@PathVariable String ApplicationNumber)
     {
         return applicationsRepo.getMail(ApplicationNumber).get(0);
+    }
+
+    @GetMapping("/getRejectedApplications/{officeId}")
+    public List<Rejected> getRejectedApplications(@PathVariable Integer officeId)
+    {
+        return rejectedRepo.getRejectedApplications(officeId);
     }
 }
