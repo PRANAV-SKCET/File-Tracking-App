@@ -29,6 +29,8 @@ import com.springboot.springboot.repository.EmployeeUsersRepo;
 import com.springboot.springboot.repository.OfficeUsersRepo;
 import com.springboot.springboot.repository.RejectedRepo;
 
+import jakarta.persistence.criteria.CriteriaBuilder.In;
+
 @RestController
 public class UserController {
 
@@ -383,5 +385,41 @@ public class UserController {
         {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to load!!!");
         }
+    }
+
+    @GetMapping("/getName/{ApplicationNumber}")
+    public String getApplicantName(@PathVariable String ApplicationNumber)
+    {
+        return applicationsRepo.getApplicantName(ApplicationNumber).get(0);
+    }
+
+    @GetMapping("/getApplicationName/{ApplicationNumber}")
+    public String getApplicationName(@PathVariable String ApplicationNumber)
+    {
+        return applicationsRepo.getApplicationName(ApplicationNumber).get(0);
+    }
+
+    @GetMapping("getDesignation/{employeeMail}")
+    public String getDesignation(@PathVariable String employeeMail)
+    {
+        return employeeUsersRepo.getDesignation(employeeMail).get(0);
+    }
+
+    @GetMapping("/getOfficeId/{employeeMail}")
+    public int getOfficeId(@PathVariable String employeeMail)
+    {
+        return employeeUsersRepo.getOfficeId(employeeMail).get(0);
+    }
+
+    @GetMapping("/getOfficeName/{officeId}")
+    public String getOfficename(@PathVariable int officeId)
+    {
+        return officeUsersRepo.getOfficeName(officeId).get(0);
+    }
+
+    @GetMapping("getMail/{ApplicationNumber}")
+    public String getMail(@PathVariable String ApplicationNumber)
+    {
+        return applicationsRepo.getMail(ApplicationNumber).get(0);
     }
 }
