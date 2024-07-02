@@ -11,17 +11,26 @@ public class Rejected {
     private String dateOfRejection;
     private String dateOfOpening;
     private int employeeId;
+    private int officeId;
     private String comment;
     public Rejected() {
     }
     public Rejected(String applicationNumber, String reasonForRejection, String dateOfRejection, String dateOfOpening,
-            int employeeId, String comment) {
+            int employeeId, String comment, int officeId) {
         this.applicationNumber = applicationNumber;
         this.reasonForRejection = reasonForRejection;
         this.dateOfRejection = dateOfRejection;
         this.dateOfOpening = dateOfOpening;
         this.employeeId = employeeId;
         this.comment = comment;
+        this.officeId = officeId;
+    }
+    
+    public int getOfficeId() {
+        return officeId;
+    }
+    public void setOfficeId(int officeId) {
+        this.officeId = officeId;
     }
     public String getApplicationNumber() {
         return applicationNumber;
