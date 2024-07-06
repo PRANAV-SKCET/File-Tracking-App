@@ -437,7 +437,7 @@ public class UserController {
         int employeeId = rejectedRepo.findEmpId(applicationNumber).get(0);
         String employeeMail = employeeUsersRepo.findMail(employeeId).get(0);
         String tableName = employeeMail.replaceAll("[^a-zA-Z0-9]", "_");
-        int days = 1;
+        int days = 3;
 
         String sql3 = "INSERT INTO `" + tableName + "` "
         + "(ApplicationNumber, status, created_at,NoOfDays) "
@@ -449,5 +449,7 @@ public class UserController {
         LocalDate.now().toString(),
         days
         );
+
+        rejectedRepo.deleteById(applicationNumber);
     }
 }
