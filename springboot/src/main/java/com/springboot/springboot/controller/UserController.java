@@ -431,4 +431,23 @@ public class UserController {
         return rejectedRepo.getRejectedApplications(officeId);
     }
 
+    @PostMapping("/reopenApplication/{applicationNumber}")
+    public void reopenApplication(@PathVariable String applicationNumber)
+    {
+        int employeeId = rejectedRepo.findEmpId(applicationNumber).get(0);
+        String employeeMail = employeeUsersRepo.findMail(employeeId).get(0);
+        String tableName = employeeMail.replaceAll("[^a-zA-Z0-9]", "_");
+        int days = 1;
+
+        String sql3 = "INSERT INTO `" + tableName + "` "
+        + "(ApplicationNumber, status, created_at,NoOfDays) "
+        + "VALUES (?, ?, ?, ?)";
+        
+        jdbcTemplate.update(sql3,
+        applicationNumber,
+        "Pending",
+        LocalDate.now().toString(),
+        days
+        );
+    }
 }

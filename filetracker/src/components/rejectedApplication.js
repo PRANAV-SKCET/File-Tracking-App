@@ -20,6 +20,10 @@ export default function RejectedApplications() {
         fetchRejectedApplications();
     }, [officeId]);
 
+    const handleReopen = (applicationNumber) => {
+        axios.post(`http://localhost:8080/reopenApplication/${applicationNumber}`)
+    };
+
     return (
         <div className="rejected-applications-container">
             <h1>Rejected Applications</h1>
@@ -31,6 +35,7 @@ export default function RejectedApplications() {
                             <strong>Date of Rejection:</strong> {application.dateOfRejection} <br />
                             <strong>Rejected By:</strong> {application.employeeId} <br />
                             <strong>Reason for Rejection:</strong> {application.reasonForRejection} <br />
+                            <button onClick={() => handleReopen(application.applicationNumber)}>Reopen</button>
                         </li>
                     ))}
                 </ul>
