@@ -5,7 +5,6 @@ import '../officePage.css'; // Ensure the correct path to your CSS file
 import { AuthContext } from './context';
 import Navbar from './navbar';
 import DomainIcon from '@mui/icons-material/Domain';
-
 export default function OfficePage() {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
