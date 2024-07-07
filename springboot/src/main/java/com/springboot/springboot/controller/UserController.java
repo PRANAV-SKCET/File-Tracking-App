@@ -451,5 +451,7 @@ public class UserController {
         );
 
         rejectedRepo.deleteById(applicationNumber);
+        String sql1 = "UPDATE "+ applicationNumber +" SET status = 'Pending',Comments=? WHERE Employee_Id = ?";
+        jdbcTemplate.update(sql1,"Re Opened",employeeId);
     }
 }

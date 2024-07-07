@@ -7,9 +7,9 @@ export default function RejectedApplications() {
     const { officeId } = useContext(AuthContext);
     const [rejectedApplications, setRejectedApplications] = useState([]);
 
-    const fetchRejectedApplications =  () => {
+    const fetchRejectedApplications = async() => {
         try {
-            const response = axios.get(`http://localhost:8080/getRejectedApplications/${officeId}`);
+            const response = await axios.get(`http://localhost:8080/getRejectedApplications/${officeId}`);
             setRejectedApplications(response.data);
         } catch (error) {
             console.error("Failed to fetch rejected applications:", error);
