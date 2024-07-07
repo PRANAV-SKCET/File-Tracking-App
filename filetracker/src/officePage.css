@@ -9,14 +9,15 @@
 }
 
 .office-container {
-    background-color: cornflowerblue; /* Keep background color white for the form */
-    padding: 20px; /* Reduce padding to make the card smaller */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Make background slightly transparent */
+    padding: 20px; /* Add more padding for better spacing */
+    border-radius: 10px; /* Increase border-radius for rounded corners */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhance box-shadow for depth */
     width: 100%;
     max-width: 400px;
     text-align: center;
-    margin: 0 20px; /* Reduce margin */
+    margin: 0 20px;
+    
 }
 
 .office-title {
@@ -28,14 +29,14 @@
 
 .icon-title {
     margin-right: 10px;
-    color: black; /* Set the color of the icon to black */
+    color: black;
 }
 
 .form-label {
     display: block;
     margin-bottom: 10px;
     text-align: left;
-    color: black; /* Ensure label color is black */
+    color: #555; /* Change label color for better contrast */
 }
 
 .form-input {
@@ -44,23 +45,27 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     flex: 1;
+    
 }
 
 .submit-button {
+    display: block;
+    /* margin-top: 20px; */
     background-color: red;
     color: white;
     transition: background-color 0.3s ease;
     width: 150px; /* Adjust the width of the button */
-    margin-top: 20px; /* Add margin-top for spacing */
-    align-self: center; /* Center the button */
-    cursor: pointer;
+    margin-top:20px;
+    align-self: center;
+    cursor: pointer; /* Adjust the top margin */
 }
 
 .submit-button:hover {
-    background-color: #0056b3;
+    background-color: #003d80;
 }
 
 .response-message {
     margin-top: 10px;
     color: red;
+    
 }

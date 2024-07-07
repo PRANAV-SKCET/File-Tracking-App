@@ -27,22 +27,11 @@ export default function Monitoring() {
             });
     };
 
-    const backgroundStyle = {
-        backgroundImage: 'url("https://w0.peakpx.com/wallpaper/403/852/HD-wallpaper-abstract-purple-purple-and-teal.jpg")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-    };
-
     return (
         <div>
             <Navbar />
-            <div style={backgroundStyle}>
-                <div className="monitoring-container card">
+            <div className="monitoring-backgroundpage">
+                <div className="monitoring-containercard">
                     <h1>
                         <AddLocationAltIcon style={{ verticalAlign: 'middle', marginRight: '10px', fontSize: '40px' }} />
                         Track your Application
@@ -57,7 +46,9 @@ export default function Monitoring() {
                             value={applicationNumber}
                             onChange={handleApplicationNumberChange}
                             multiline
-                            rows={1} // Adjust the number of rows as needed
+                            rows={1}
+                             // Adjust the number of rows as needed
+                            
                         />
                     </div>
                     {trackingInfo && trackingInfo.length > 0 && (

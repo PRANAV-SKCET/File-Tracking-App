@@ -9,10 +9,10 @@
 }
 
 .admin-container {
-    background-color: cornflowerblue; /* Keep background color white for the form */
+     /* Keep background color white for the form */
     padding: 20px; /* Reduce padding to make the card smaller */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   
     width: 100%;
     max-width: 400px;
     text-align: center;

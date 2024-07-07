@@ -1,30 +1,55 @@
-.monitoring-container {
-    width: 100%;
+.monitoring-backgroundpage {
+    background-image: url('https://w0.peakpx.com/wallpaper/403/852/HD-wallpaper-abstract-purple-purple-and-teal.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.monitoring-containercard{
+    width: 400px;
     margin: auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background:blue; /* Keep background color for better visibility */
+    background: cornflowerblue; /* Keep background color for better visibility */
     color: white;
-    font:white; /* Set font color to white */
     margin-top: 30px;
 }
 
 .input-field {
     margin-bottom: 20px;
-   
     display: block;
-    color: white; /* Set font color to white for input field text */
+    color: white;
+    width: 150px; /* Set font color to white for input field text */
 }
 
 .track-button {
     display: block;
-    margin-top: 20px;
+    margin-bottom: 250px;
     background-color: red;
     color: white;
     transition: background-color 0.3s ease;
+    
 }
 
 .track-button:hover {
     background-color: blue;
+}
+
+.tracking-info {
+    margin-top: 20px;
+    color: white;
+}
+
+.tracking-info-item {
+    margin-bottom: 10px;
+}
+
+.error-message {
+    margin-top: 20px;
+    color: red;
 }

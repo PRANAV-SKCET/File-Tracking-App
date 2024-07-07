@@ -46,7 +46,7 @@ export default function EmployeePage() {
         <div>
             {!isEmployeeLoggedIn && <Navbar />}
             <div className="background-container">
-                <div className="admin-container">
+                <div className="admin-content">
                     <h1 className="admin-title">
                         <ManIcon className="icon-title" style={{ fontSize: 40 }} />
                         Employee Login
@@ -61,12 +61,12 @@ export default function EmployeePage() {
                             Password:
                             <input className="form-input" type="password" value={password} onChange={handlePasswordChange} />
                         </label>
+                        <button className="submit-button" type="submit">Login</button>
                     </form>
                     {message && (
                         <div className="response-message">{message}</div>
                     )}
                 </div>
-                <button className="submit-button" type="submit" onClick={handleSubmit}>Login</button>
             </div>
         </div>
     );
