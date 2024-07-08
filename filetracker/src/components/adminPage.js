@@ -24,7 +24,8 @@ export default function AdminPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.get(`http://localhost:8080/AdminLogin/${email}/${password}`);
+            const response = await axios.post(`http://localhost:8080/AdminLogin/${email}/${password}`);
+            console.log(response.data);
             if (response.data === true) {
                 const response2 = await axios.get(`http://localhost:8080/AdminLoginDetails/${email}/${password}`);
                 setDistrictId(response2.data.districtId);

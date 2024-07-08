@@ -60,7 +60,7 @@ public class UserController {
     @Autowired
     private RejectedRepo rejectedRepo;
 
-    @GetMapping("/AdminLogin/{email}/{password}")
+    @PostMapping("/AdminLogin/{email}/{password}")
     public Boolean AdminLogin(@PathVariable String email, @PathVariable String password)
     {
         List<AdminUsers> li = adminUsersRepo.ableToLogin(email,password);

@@ -16,6 +16,7 @@ public class CorsConfig {
                         .allowedOrigins("http://localhost:3000") // Allow requests from frontend domain
                         .allowedMethods("GET", "POST", "PUT", "DELETE","OPTIONS") // Allowed HTTP methods
                         .allowedHeaders("*"); // Allowed headers
+                        
             }
         };
     }
